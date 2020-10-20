@@ -1,8 +1,8 @@
 import React from 'react';
 import AdminPanel from './src/screens/AdminPanel';
 import Basket from './src/screens/Basket';
-import Product from './src/screens/Product';
 import ProductsList from './src/screens/ProductsList';
+import Product from './src/screens/Product';
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
             </li>
             <li>
               <Link to="/adminpanel">Admin Panel</Link>
-            </li>
+            </li>           
           </ul>
         </nav>
               
@@ -32,6 +32,9 @@ function App() {
           </Route>        
           <Route path="/productslist">
             <ProductsList />
+          </Route>
+          <Route path="/product/">
+            <Product/>
           </Route>
         </Switch>
       </div>

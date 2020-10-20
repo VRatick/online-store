@@ -1,0 +1,102 @@
+[
+    {
+        "uuid": "1",
+        "name": "Grand theft auto V",
+        "price": "60",
+        "description_short": "GTA 5 for the Xbox one Condition is very good.",
+        "description_full": "GTA 5 for the Xbox one Condition is very good. Dispatched with Royal Mail 1st Class Large Letter. Postage on any of my items can be combined and I always get proof of postage. Buy from a trusted Ebayer.",
+        "producer": "Rockstar",
+        "amount": "5",
+        "language": "eng, ru",
+        "date": "2013",
+        "platform": "xbox one",
+        "image": [
+            "https://i.ebayimg.com/images/g/4ZoAAOSw1LpfJx-A/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/9-gAAOSw2ZRfJx-D/s-l1600.jpg"            
+        ]
+    },
+    {
+        "uuid": "2",
+        "name": "Titanfall",
+        "price": "5",
+        "description_short": "Titanfall is a multiplayer first-person shooter video game developed by Respawn Entertainment and published by Electronic Arts.",
+        "description_full": "Titanfall is a multiplayer first-person shooter video game developed by Respawn Entertainment and published by Electronic Arts. It was released for Windows and Xbox One on March 11, 2014; an Xbox 360 version ported by Bluepoint Games was released April 8, 2014",
+        "producer": "Electronic Arts",
+        "amount": "2",
+        "language": "eng",
+        "date": "2014",
+        "platform": "xbox 360",
+        "image": [
+            "https://i.ebayimg.com/images/g/ifUAAOSw1u5fYEfE/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/IEkAAOSw2S1fYEfU/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/bgYAAOSws-JfYEfu/s-l1600.jpg"
+        ]
+    },
+    {
+        "uuid": "3",
+        "name": "Stormrise",
+        "price": "15",
+        "description_short": "The First Fully 3D RTS: Gone are the flat levels of traditional strategy games.",
+        "description_full": "The First Fully 3D RTS: Gone are the flat levels of traditional strategy games. Players will experience RTS gameplay in a whole new way on battlefields comprised of sprawling cities and towering skyscrapers in incredibly immersive 3D environments. Advanced Multiplayer Features: The ¿Join Anytime¿ feature enables quick setup, map rotation and easymatchmaking for multiplayer skirmishes. From The Creative Assembly, makers of the hit Total War franchise.",
+        "producer": "Sega",
+        "amount": "6",
+        "language": "eng, ru, pl",
+        "date": "2008",
+        "platform": "xbox 360",
+        "image": [
+            "https://i.ebayimg.com/images/g/EwAAAOSwVhxek5Hb/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/gbAAAOSwhQhek5PY/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/VJQAAOSwGfVek5Pa/s-l1600.jpg"
+        ]
+    },
+    {
+        "uuid": "4",
+        "name": "Minecraft",
+        "price": "100",
+        "description_short": "NEW SEALED MINECRAFT XBOX360 EDITION VIDEO GAME.",
+        "description_full": "NEW SEALED MINECRAFT XBOX360 EDITION' VIDEO GAME. THE GAME IS NEW AND SEALED. THERE ARE 2 SMALL TEARS IN PLASTIC ON BACK SIDE TOWARDS THE BOTTOM. OTHER THAN THAT THERE IS NO OTHER ISSUES. PLEASE NOTE ONCE THE GAME IS OPEN, RETURNS WILL NOT BE ACCEPTED. PLEASE EMAIL ME IF YOU HAVE ANY QUESTIONS. THANK YOU FOR LOOKING. THE GAME IS SOLD AS IS.",
+        "producer": "Mojang",
+        "amount": "100",
+        "language": "eng",
+        "date": "2012",
+        "platform": "xbox 360",
+        "image": [
+            "https://i.ebayimg.com/images/g/bxMAAOSw0KtfjfJX/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/JpUAAOSw8vpfjfHe/s-l1600.jpg"            
+        ]
+    },
+    {
+        "uuid": "5",
+        "name": "Destiny 2 Steelbook",
+        "price": "20",
+        "description_short": "Destiny 2 is the next installment of this MMO-Shooter, and it is available for the Xbox One.",
+        "description_full": "Destiny 2 is the next installment of this MMO-Shooter, and it is available for the Xbox One. Unlike the previous title, Destiny 2 features a full and interactive map with easy-to-use features, and there will not be subclass specializations that will add additional abilities for your character. A wide variety of weapon perks and gear modifications are included in the game to unlock limitless possibilities. You will also be able to play with your friends through Xbox Live.",
+        "producer": "Activision",
+        "amount": "1",
+        "language": "ru",
+        "date": "2017",
+        "platform": "xbox one",
+        "image": [
+            "https://i.ebayimg.com/images/g/eTUAAOSwRs1fjoIt/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/i1YAAOSwumNfjoIv/s-l1600.jpg"           
+        ]
+    },
+    {
+        "uuid": "6",
+        "name": "Prey",
+        "price": "30",
+        "description_short": "Prey is a first-person shooter video game developed by Arkane Studios and published by Bethesda Softworks.",
+        "description_full": "Prey takes place in an alternate timeline that resulted in an accelerated Space Race and humankind taking to orbital stations far earlier. The player controls Morgan Yu while exploring the space station Talos I, in orbit around Earth–Moon L2, where they were part of a scientific team researching the Typhon, a hostile alien force composed of many forms with both physical and psychic powers, such as shapeshifting into a clone of any inanimate object. As the Typhon escape confinement, the player uses a variety of weapons and abilities derived from the Typhon to avoid being killed while looking to escape the station",
+        "producer": "Bethesda",
+        "amount": "2",
+        "language": "eng, ru",
+        "date": "2017",
+        "platform": "xbox one",
+        "image": [
+            "https://i.ebayimg.com/images/g/P2kAAOSwag1fjf~5/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/JgAAAOSw~2Rfjf~z/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/pOYAAOSwGqZfjf~v/s-l1600.jpg",
+            "https://i.ebayimg.com/images/g/UHkAAOSwQgVfjf~p/s-l1600.jpg"
+        ]
+    }
+]
