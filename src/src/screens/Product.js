@@ -1,7 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addProduct } from '../redux/actions/basket'
 
-function Product () {   
+function Product (props) {   
     const match = useLocation();
     const product = match.state;
     const images = product.image.map( (image, index) => {
@@ -19,9 +21,23 @@ function Product () {
             <p>Platform: {product.platform}</p>
             <p>Producer: {product.producer}</p>
             {images}
-            <button>Add to Basket</button>
+            <button onClick={
+                () => {
+                    props.addProductToBasket(product);
+                    console.log(props);
+                }
+            }>Add to Basket</button>
         </div>
     )
 }
 
-export default Product
+const mapStateToProps = ( state ) => ({
+    products: state.basket.products
+  });
+  
+const mapDispatchToProps = (dispatch) => ({
+    addProductToBasket: (product) => dispatch(addProduct(product)),
+});
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
+
