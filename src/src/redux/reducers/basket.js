@@ -11,17 +11,19 @@ import {
     switch (action.type) {      
       case ADD_ITEM_TO_BASKET: {
         const { product } = action;
-        state.products.push(product)
-        return { ...state };
+        const products = state.products
+        products.push(product);
+        return { ...state, products };
       }
       case REMOVE_ITEM_FROM_BASKET: {
         const { productId } = action;
-        state.products.forEach( (product, index) => {
-            if (product.uuid === productId) {                
-                state.products.splice(index, 1);
+        const products = [];
+        state.products.forEach( ( product ) => {
+            if (product.uuid !== productId) {                
+                products.push(product)
             }
         })
-        return { ...state };
+        return { ...state, products };
       }      
       default: {
         return state;
