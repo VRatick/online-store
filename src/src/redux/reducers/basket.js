@@ -15,9 +15,9 @@ import {
         return { ...state };
       }
       case REMOVE_ITEM_FROM_BASKET: {
-        const { productID } = action;
+        const { productId } = action;
         state.products.forEach( (product, index) => {
-            if (product.uuid === productID) {
+            if (product.uuid === productId) {                
                 state.products.splice(index, 1);
             }
         })

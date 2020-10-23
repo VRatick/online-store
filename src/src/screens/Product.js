@@ -23,21 +23,16 @@ function Product (props) {
             {images}
             <button onClick={
                 () => {
-                    props.addProductToBasket(product);
-                    console.log(props);
+                    props.addProductToBasket(product);                    
                 }
             }>Add to Basket</button>
         </div>
     )
 }
-
-const mapStateToProps = ( state ) => ({
-    products: state.basket.products
-  });
   
 const mapDispatchToProps = (dispatch) => ({
     addProductToBasket: (product) => dispatch(addProduct(product)),
 });
   
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(null, mapDispatchToProps)(Product);
 
