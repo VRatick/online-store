@@ -1,0 +1,17 @@
+{
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone",
+    "city": "City",
+    "country": "Country",
+    "nameMessage": "Enter your name",
+    "surnameMessage": "Enter your surname",
+    "phoneMessage": "Enter your phone",
+    "cityMessage": "Enter your city",
+    "countryMessage": "Select your country",
+    "validationError": "Validation error",
+    "emptyBasket": "The basket is empty",
+    "buyButton": "Buy",
+    "dealMessage": "Thank you for your purchase"
+}
+    
