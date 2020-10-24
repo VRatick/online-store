@@ -5,6 +5,7 @@ import { Select, MenuItem, TextField, FormControl, FormHelperText, Input, InputL
 import countries from '../assets/counties.json';
 import customerBasket from '../assets/customersBasket.json';
 import { validationName, validationSurname, validationPhone, validationCity} from '../assets/validation';
+import inputPhoneReplace from '../components/inputPhoneReplace';
 
 function Basket (props) {    
     const [customerInformation, setСustomerInformation] = useState({
@@ -48,7 +49,7 @@ function Basket (props) {
 
     const setCustomerPhone = (event) => {
         const customer = {...customerInformation}
-        customer.phone = inputPhone(event.target.value);
+        customer.phone = inputPhoneReplace(event.target.value);
         if (customer.phone !== null && customer.phone.match(validationPhone)) {            
             customer.phoneValidation = true;           
             
@@ -76,28 +77,9 @@ function Basket (props) {
         const customer = {...customerInformation}
         customer.country = event.target.value;
         setСustomerInformation(customer);
-    }
+    }    
 
-    const inputPhone = (phone) => {
-        let phoneNumber = phone;          
-        if (phoneNumber.length === 1) {
-            phoneNumber = '(' + phoneNumber[0];
-        }
-        if (phoneNumber.length === 4) {
-            phoneNumber += ') ';            
-        }
-        if (phoneNumber.length === 9) {
-            phoneNumber += '-';
-        }
-        if (phoneNumber.length === 14) {
-            return phoneNumber;
-        }
-        console.log(phoneNumber);
-        return phoneNumber
-        
-    }
-
-    const userForm = true ? (
+    const userForm = props.products.length !== 0 ? (
         <div>
             <form>
                 <FormControl error={customerInformation.nameValidation === null || customerInformation.nameValidation === true ? false : true}>
