@@ -3,25 +3,33 @@ import AdminPanel from './src/screens/AdminPanel';
 import Basket from './src/screens/Basket';
 import ProductsList from './src/screens/ProductsList';
 import Product from './src/screens/Product';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import './src/styles/app.css';
+import xboxLogo from './src/assets/images/xboxLogo.png'
+import { Badge } from '@material-ui/core'
 
-function App() {
+function App (props) {  
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/productslist">Products List</Link>
-            </li>
-            <li>
-              <Link to="/basket">Basket</Link>
-            </li>
-            <li>
-              <Link to="/adminpanel">Admin Panel</Link>
-            </li>           
-          </ul>
-        </nav>
+        <div className='container'>            
+              <Link to="/productslist">
+                <img className='banner' src={xboxLogo} />
+              </Link>
+              <div>        
+                <Link to="/basket">
+                  <Badge badgeContent={props.products.length} color="error">             
+                    <ShoppingCartIcon style={{ width: '75px', height: '75px', color: 'black' }}></ShoppingCartIcon>     
+                  </Badge>              
+                </Link>            
+                <Link to="/adminpanel">
+                  <SupervisorAccountIcon disabled style={{ width: '75px', height: '75px', color: 'black', display: 'none' }}></SupervisorAccountIcon>
+                </Link>
+              </div>     
+        </div>
               
         <Switch>
           <Route path="/adminpanel">
@@ -42,4 +50,8 @@ function App() {
   );  
 }
 
-export default App;
+const mapStateToProps = ( state ) => ({
+  products: state.basket.products
+});
+
+export default connect(mapStateToProps, null)(App);
