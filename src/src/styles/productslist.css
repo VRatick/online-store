@@ -1,0 +1,39 @@
+.products-list {
+    margin-top: 10px;
+}
+
+.product {
+    height: 160px;
+    width: 600px;
+    display: flex;
+    margin: 5px 5px 5px 5px;
+    background-color: azure;
+    opacity: 0.9;
+    justify-content: space-between;
+    border: 4px solid black;
+}
+
+.image {
+    height: 150px;  
+}
+
+.product-image {
+    height: 150px;
+    width: 25%;
+    text-align: center;   
+    margin: 5px 5px 5px 5px;
+    border: 1px solid grey;
+}
+
+.product-information {
+    width: 65%;
+    margin: 5px 5px 5px 5px;    
+    text-align: center;
+    
+}
+
+.product-add-to-basket {
+    width: 10%;
+    margin: auto;
+    margin-right: 5px;
+}

@@ -3,34 +3,56 @@ import db from '../assets/db.json'
 import { Link } from "react-router-dom";
 import { addProduct } from '../redux/actions/basket'
 import { connect } from 'react-redux';
+import '../styles/productslist.css'
+import { Grid, Button } from '@material-ui/core';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 function ProductsList (props) {
     const products = db.map( (product) => {
         return (
             
-            <div key={product.uuid}>
-                <Link to={{
-                    pathname: "/product",
-                    hash: "#" + product.uuid,
-                    state: product
-                    }}>                    
-                    <h1>{product.name}</h1>
-                    <p>{product.price}</p>
-                    <p>{product.producer}</p>
-                    <p>{product.description_short}</p>
-                    <img src={product.image[0]}/>                    
-                </Link>
-                <button onClick={
-                        () => {
-                            props.addProductToBasket(product);                    
-                        }
-                    }>Add to Basket</button>
+            <div key={product.uuid} className='product'>
+                <div className='product-image'>
+                    <Link to={{
+                        pathname: "/product",
+                        hash: "#" + product.uuid,
+                        state: product
+                        }}>                    
+                        <img className='image' src={product.image[0]}/>                                  
+                    </Link>                   
+                </div>
+                <div className='product-information'>
+                    <Link style={{textDecoration: 'none', color: 'black'}} to={{
+                        pathname: "/product",
+                        hash: "#" + product.uuid,
+                        state: product
+                        }}>                    
+                        <p>{product.name}</p>
+                        <p>${product.price}, {product.producer}</p>                        
+                        <p>{product.description_short}</p>                                  
+                    </Link>
+                </div>
+                <div className='product-add-to-basket'>
+                    <Button onClick={
+                            () => {
+                                props.addProductToBasket(product);                    
+                            }
+                        }><ShoppingBasketIcon></ShoppingBasketIcon></Button>
+                </div>
             </div>
         )
     })
     return (        
-        <div>
-            {products}            
+        <div className='products-list'>
+            <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                spacing={1}
+            >
+                {products}  
+            </Grid>          
         </div>    
     )
 }
