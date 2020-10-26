@@ -19,7 +19,16 @@ function Basket (props) {
         phoneValidation: null,        
         cityValidation: null
     })
-    const [deal, setDeal] = useState(false);   
+    const [deal, setDeal] = useState(false);
+    const [productsList, setProductsList] = useState(
+        props.products.map( (product) => {
+            return {
+                uuid: product.uuid,
+                amount: 1,
+                price: product.price
+            }
+        })
+    );    
 
     const setCustomerName = (event) => {
         const customer = {...customerInformation};
@@ -77,6 +86,24 @@ function Basket (props) {
         const customer = {...customerInformation}
         customer.country = event.target.value;
         setСustomerInformation(customer);
+    }
+    
+    const setProductAmount = (event, uuid) => {        
+        const productsArray = [...productsList];
+        productsArray.forEach( (product) => {
+            if (product.uuid === uuid) {
+                product.amount = event.target.value      
+            }
+        })
+        setProductsList(productsArray);        
+    }    
+    
+    const totalSum = () => {
+        let sum = 0;
+        productsList.forEach( (product) => {            
+            sum += product.amount * +product.price;
+        })
+        return sum
     }    
 
     const userForm = props.products.length !== 0 ? (
@@ -111,7 +138,7 @@ function Basket (props) {
                     aria-describedby="customer-phone-text"                    
                     startAdornment={<InputAdornment position="start">+38</InputAdornment>}
                     inputProps={{
-                        "maxlength": "15"
+                        "maxLength": "15"
                     }}                        
                     />
                     <FormHelperText id="customer-phone-text">{customerInformation.phoneValidation === null || customerInformation.phoneValidation === true ? customerBasket.phoneMessage : customerBasket.validationError}</FormHelperText>
@@ -158,8 +185,7 @@ function Basket (props) {
         </div>
     ) : null
 
-    const products = props.products.length !== 0 ? props.products.map( (product) => {
-        const count = 1;
+    const products = props.products.length !== 0 ? props.products.map( (product) => {             
         let amount = [];         
         for (let i = 1; i <= product.amount; i++) {
             amount.push(<MenuItem value={i}>{i}</MenuItem>)
@@ -169,10 +195,14 @@ function Basket (props) {
             <div key={product.uuid}>
                 <img src={product.image[0]} />
                 <h2>Name: {product.name}</h2>
-                <Select labelId="label" id={product.name} value="1">
+                <Select labelId="label" id={product.name} value="1" onChange={
+                    (event) => {
+                        setProductAmount(event, product.uuid)
+                    }
+                }>
                     {amount}
                 </Select>
-                <p>Price: {product.price * count}</p>
+                <p>Price: {product.price}</p>
                 <button onClick={ 
                         () => {
                         props.removeProductFromBasket(product.uuid)                        
@@ -180,7 +210,7 @@ function Basket (props) {
                 }>Remove Product From Basket</button>
             </div>
         )
-    }) : <div>{customerBasket.emptyBasket}</div>;
+    }) : <div>{customerBasket.emptyBasket}</div>;    
     
     return deal ? (
         <div>
@@ -189,9 +219,10 @@ function Basket (props) {
     ) : (
         <div>
             <div>
-             {products}
-            </div>           
-             {userForm}            
+                {products}
+                {props.products.length !== 0 ? <h2>Total: {totalSum()} $</h2> : null}           
+            </div>                      
+            {userForm}            
         </div>
     ) 
     
