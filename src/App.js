@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AdminPanel from './src/screens/AdminPanel';
 import Basket from './src/screens/Basket';
 import ProductsList from './src/screens/ProductsList';

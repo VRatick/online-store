@@ -1,0 +1,97 @@
+.basket-user-information {
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    background-color:  azure;
+    height: 600px;
+    width: 600px;
+    border: 4px solid black;
+    text-align: center;    
+}
+
+.basket-products {
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    background-color:  azure;
+    height: 600px;
+    width: 600px;
+    border: 4px solid black;
+    position: relative;
+}
+
+.basket-container {
+    display: flex;
+    justify-content: center;
+}
+
+.basket-product {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+    text-align: center;
+}
+
+.basket-product-image {
+    width: 150px;
+}
+
+.basket-product-information {
+    width: 390px;
+}
+
+.basket-product-remove-from-basket {
+    width: 60px;
+    margin: auto;
+}
+
+.basket-product-pricing {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.basket-product-amount {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.basket-empty {
+    height: 100px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.basket-total-sum {
+    position:   absolute;
+    bottom: 0;
+    height: 75px;
+    width: 600px;    
+}
+
+.text-center {
+    text-align: center;
+}
+
+.basket-products-list {
+    height: 525px;
+    overflow: auto;
+}
+
+.basket-input {
+    margin: 5px 5px 5px 5px;
+}
+
+.basket-deal-message {
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    background-color:  azure;
+    height: 600px;
+    width: 600px;
+    border: 4px solid black;
+    text-align: center;   
+}
+
+.basket-deal-text {
+    margin-top: 100px;      
+}
