@@ -9,8 +9,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 function ProductsList (props) {
     const products = db.map( (product) => {
-        return (
-            
+        return (            
             <div key={product.uuid} className='product'>
                 <div className='product-image'>
                     <Link to={{
@@ -33,7 +32,7 @@ function ProductsList (props) {
                     </Link>
                 </div>
                 <div className='product-add-to-basket'>
-                    <Button onClick={
+                    <Button style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
                             () => {
                                 props.addProductToBasket(product);                    
                             }
@@ -48,8 +47,7 @@ function ProductsList (props) {
                 container
                 direction="row"
                 justify="center"
-                alignItems="center"
-                spacing={1}
+                alignItems="center"               
             >
                 {products}  
             </Grid>          

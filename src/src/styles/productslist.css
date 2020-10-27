@@ -13,6 +13,10 @@
     border: 4px solid black;
 }
 
+.product:hover {
+    transform: scale(1.02);
+  }
+
 .image {
     height: 150px;  
 }
@@ -35,5 +39,5 @@
 .product-add-to-basket {
     width: 10%;
     margin: auto;
-    margin-right: 5px;
+    margin-right: 10px;    
 }
