@@ -123,7 +123,7 @@ function Basket (props) {
     const userForm = props.products.length !== 0 ? (
         <div className='basket-user-information'>
             <h1>
-                Buyer information
+                {customerBasket.buyerInformation}
             </h1>
             <form>
                 <div className='basket-input'>
@@ -237,11 +237,11 @@ function Basket (props) {
                     <h2>{product.name}</h2>
                     <div className='basket-product-pricing'>
                         <div className='basket-product-price'>
-                            <p>Price</p>
+                            <p>{customerBasket.price}</p>
                             <p>{product.price}$</p>
                         </div>
                         <div className='basket-product-amount'>
-                            <p>Amount</p>
+                            <p>{customerBasket.amount}</p>
                             <Select labelId={product.name} id={product.name} value={productInfo.amount} onChange={
                                 (event) => {
                                     setProductAmount(event, product.uuid)
@@ -252,7 +252,7 @@ function Basket (props) {
                             </Select>
                         </div>
                         <div className='basket-product-price'>
-                            <p>Total</p>
+                            <p>{customerBasket.total}</p>
                             <p>{productInfo.total}$</p>
                         </div>                  
                     </div>

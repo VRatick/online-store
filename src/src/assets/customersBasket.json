@@ -12,6 +12,10 @@
     "validationError": "Validation error",
     "emptyBasket": "The basket is empty",
     "buyButton": "Buy",
-    "dealMessage": "Thank you for your purchase"
+    "dealMessage": "Thank you for your purchase",
+    "buyerInformation": "Buyer information",
+    "total": "Total",
+    "price": "Price",
+    "amount": "Amount"
 }
     

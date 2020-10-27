@@ -7,6 +7,7 @@ import { Grid, Button } from '@material-ui/core';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import productInfo from '../assets/customersBasket.json'
 
 function Product (props) {    
     const match = useLocation();
@@ -42,7 +43,7 @@ function Product (props) {
                                 () => {
                                     props.addProductToBasket(product);                    
                                 }
-                            }>Buy<ShoppingBasketIcon></ShoppingBasketIcon>
+                            }>{productInfo.buyButton}<ShoppingBasketIcon></ShoppingBasketIcon>
                         </Button>
                     </div>
                     <div className='single-product-description'>                        
