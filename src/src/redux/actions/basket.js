@@ -5,7 +5,7 @@ export const addProduct = (product) => ({
     product
   });
   
-  export const removeProduct = (productId) => ({
-    type: Constants.REMOVE_ITEM_FROM_BASKET,
-    productId,
-  });
+export const removeProduct = (productId) => ({
+  type: Constants.REMOVE_ITEM_FROM_BASKET,
+  productId,
+});
