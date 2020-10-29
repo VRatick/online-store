@@ -26,7 +26,7 @@ function App (props) {
                   </Badge>              
                 </Link>            
                 <Link to="/adminpanel">
-                  <SupervisorAccountIcon disabled style={{ width: '75px', height: '75px', color: 'black', display: 'none' }}></SupervisorAccountIcon>
+                  <SupervisorAccountIcon disabled style={{ width: '75px', height: '75px', color: 'black'}}></SupervisorAccountIcon>
                 </Link>
               </div>     
         </div>

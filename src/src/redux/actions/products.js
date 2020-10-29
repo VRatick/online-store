@@ -1,5 +1,10 @@
 import * as Constants from '../constants/products';
 
+export const getProductsFromDataBase = (products) => ({
+    type: Constants.GET_ITEM_FROM_DATABASE,
+    products
+});
+
 export const addProductToDataBase = (product) => ({
     type: Constants.ADD_ITEM_TO_DATABASE,
     product
