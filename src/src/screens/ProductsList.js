@@ -1,15 +1,16 @@
 import React from 'react';
-import db from '../assets/db.json'
 import { Link } from "react-router-dom";
 import { addProduct } from '../redux/actions/basket'
 import { connect } from 'react-redux';
 import '../styles/productslist.css'
 import { Grid, Button } from '@material-ui/core';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function ProductsList (props) {
+    const db = props.allProducts;
     const products = db.map( (product) => {
-        return (            
+        return (
             <div key={product.uuid} className='product'>
                 <div className='product-image'>
                     <Link to={{
@@ -48,7 +49,7 @@ function ProductsList (props) {
                 direction="row"
                 justify="center"
                 alignItems="center"               
-            >
+            >                
                 {products}  
             </Grid>          
         </div>    
@@ -56,11 +57,12 @@ function ProductsList (props) {
 }
 
 const mapStateToProps = ( state ) => ({
-    products: state.basket.products
+    products: state.basket.products,
+    allProducts: state.products.allProducts
   });
 
 const mapDispatchToProps = (dispatch) => ({
-    addProductToBasket: (product) => dispatch(addProduct(product)),
+    addProductToBasket: (product) => dispatch(addProduct(product))    
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsList);

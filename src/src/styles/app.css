@@ -1,6 +1,7 @@
 body {    
     width: 100;
-    background-image: url(../assets/images/xboxBackground.jpg);     
+    background-image: url(../assets/images/xboxBackground.jpg);   
+    background-size: cover;  
 }
 
 .container {

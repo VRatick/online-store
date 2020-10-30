@@ -30,14 +30,14 @@
 }
 
 .product-information {
-    width: 65%;
+    width: 380px;
     margin: 5px 5px 5px 5px;    
     text-align: center;
     
 }
 
 .product-add-to-basket {
-    width: 10%;
+    width: 70px;
     margin: auto;
     margin-right: 10px;    
 }

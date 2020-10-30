@@ -8,8 +8,7 @@ import {
 import api from '../api';
   
 const initialState = {
-    allProducts: [],
-    //loading: true    
+    allProducts: [],    
 };
 
 export default (state = initialState, action) => {

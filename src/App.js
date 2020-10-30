@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AdminPanel from './src/screens/AdminPanel';
 import Basket from './src/screens/Basket';
 import ProductsList from './src/screens/ProductsList';
@@ -9,9 +9,16 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import './src/styles/app.css';
 import xboxLogo from './src/assets/images/xboxLogo.png'
-import { Badge } from '@material-ui/core'
+import { getProductsFromDataBase } from './src/redux/actions/products';
+import axios from 'axios';
+import { apiPrefix } from './src/etc/config.json'
 
-function App (props) {  
+function App (props) {
+  const [loading, setLoading] = useState(true);
+    if (props.products.length === 0 && loading) {
+        props.getProduct();
+        setLoading(false);
+    }  
   return (
     <Router>
       <div>
@@ -20,10 +27,8 @@ function App (props) {
                 <img className='banner' src={xboxLogo} />
               </Link>
               <div>        
-                <Link to="/basket">
-                  <Badge badgeContent={props.products.length} color="error">             
-                    <ShoppingCartIcon style={{ width: '75px', height: '75px', color: 'black' }}></ShoppingCartIcon>     
-                  </Badge>              
+                <Link to="/basket">                          
+                  <ShoppingCartIcon style={{ width: '75px', height: '75px', color: 'black' }}></ShoppingCartIcon>   
                 </Link>            
                 <Link to="/adminpanel">
                   <SupervisorAccountIcon disabled style={{ width: '75px', height: '75px', color: 'black'}}></SupervisorAccountIcon>
@@ -54,4 +59,18 @@ const mapStateToProps = ( state ) => ({
   products: state.basket.products
 });
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = (dispatch) => ({  
+  getProduct: async () => {  
+      let allProducts;      
+      await axios.get(`${apiPrefix}/products`).then( (response) => {
+          allProducts = response.data             
+          dispatch(getProductsFromDataBase(allProducts))
+      })
+      .catch(err => {
+          console.log(err)
+      }); 
+      
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

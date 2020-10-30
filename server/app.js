@@ -25,8 +25,8 @@ app.post('/products', (req, res) => {
     db.createProduct(req.body).then(data => res.send(data));
 });
 
-app.delete('/products/:id', (req, res) => {
-    db.deleteProduct(req.params.id).then(data => res.send(data));
+app.delete('/products/:uuid', (req, res) => {
+    db.deleteProduct(req.params.uuid).then(data => res.send(data));
 });
 
 const server = app.listen(config.serverPort, function() {

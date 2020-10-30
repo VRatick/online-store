@@ -13,6 +13,7 @@ export function listProducts() {
 
 export function createProduct(data) {
     const product = new Product({
+        uuid: data.uuid,
         name: data.name,
         price: data.price,
         description_short: data.description_short,
@@ -28,6 +29,6 @@ export function createProduct(data) {
     return product.save();
 }
 
-export function deleteProduct(id) {
-    return Product.findById(id).remove();
+export function deleteProduct(uuid) {
+    return Product.find({uuid: uuid}).remove();
 }
