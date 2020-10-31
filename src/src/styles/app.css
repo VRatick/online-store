@@ -18,8 +18,8 @@ body {
 
 .add-product-form {
     margin-top: 10px;
-    width: 100%;
-    height: 100%; 
+    width: 600px;
+    height: 800px; 
     background-color: azure; 
     border: 4px solid black;
 }
