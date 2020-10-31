@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import '../styles/productslist.css'
 import { Grid, Button } from '@material-ui/core';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 function ProductsList (props) {
     const db = props.allProducts;

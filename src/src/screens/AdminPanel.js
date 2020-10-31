@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addProductToDataBase, changeProductFromDataBase, removeProductFromDataBase } from '../redux/actions/products';
-import { Grid, Select, MenuItem, TextField, FormControl, FormHelperText, Input, InputLabel, Button, InputAdornment} from '@material-ui/core';
+import { Grid, FormControl, FormHelperText, Input, InputLabel, Button } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { Carousel } from 'react-responsive-carousel';
+import adminPanelText from '../assets/adminPanel.json';
 
 function AdminPanel (props) {
     const [productDB, setProductDB] = useState({
@@ -21,7 +22,7 @@ function AdminPanel (props) {
     })
     const [showForm, setShowForm] = useState(false)
     
-    const [productsList, setProductsList] = useState(props.allProducts);
+    const db = props.allProducts   
 
     const setProductName = (event) => {
         const product = {...productDB};
@@ -83,7 +84,7 @@ function AdminPanel (props) {
         setProductDB(product);        
     }
     
-    const products = productsList.map( (product) => {
+    const products = db.map( (product) => {
         const images = product.image.map( (image, index) => {
             return (
                 <div key ={index + 1} style={{ 
@@ -98,33 +99,28 @@ function AdminPanel (props) {
             )
         })
         return (
-            <div key={product.uuid} className='product' style={{height: '700px'}}>
+            <div key={product.uuid} className='product height'>
                 <div className='product-image'>                                      
                     <Carousel showThumbs={false}>
                         {images}
                     </Carousel>              
                 </div>
                 <div className='product-information'>
-                    <p>Uuid: {product.uuid}</p>                 
-                    <p>Name: {product.name}</p>
-                    <p>Price: ${product.price}</p>                                        
-                    <p>Description_short: {product.description_short}</p>   
-                    <p>Description_full: {product.description_full}</p>
-                    <p>Producer: {product.producer}</p>   
-                    <p>Amount: {product.amount}</p>   
-                    <p>Language: {product.language}</p>
-                    <p>Date: {product.date}</p>
-                    <p>Platform: {product.platform}</p>
+                    <p>{adminPanelText.uuid}: {product.uuid}</p>                 
+                    <p>{adminPanelText.name}: {product.name}</p>
+                    <p>{adminPanelText.price}: ${product.price}</p>                                        
+                    <p>{adminPanelText.description_short}: {product.description_short}</p>   
+                    <p>{adminPanelText.description_full}: {product.description_full}</p>
+                    <p>{adminPanelText.producer}: {product.producer}</p>   
+                    <p>{adminPanelText.amount}: {product.amount}</p>   
+                    <p>{adminPanelText.language}: {product.language}</p>
+                    <p>{adminPanelText.date}: {product.date}</p>
+                    <p>{adminPanelText.platform}: {product.platform}</p>
                 </div>
                 <div className='product-add-to-basket'>
-                    <Button style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
+                    <Button className="remove-product" style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
                         () => {
-                            props.deleteProduct(product.uuid)
-                            productsList.forEach( (item, index) => {
-                                if (item.uuid === product.uuid) {
-                                    productsList.splice(index, 1);
-                                }
-                            })
+                            props.deleteProduct(product.uuid)                            
                         }
                     }><HighlightOffIcon></HighlightOffIcon></Button>
                 </div>
@@ -133,126 +129,126 @@ function AdminPanel (props) {
     })
 
     const addProductForm = (        
-        <div className='product' style={{height: '800px', width: '600px', display: showForm ? 'block' : 'none'}}>            
+        <div className=''>            
             <form>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="name">Name</InputLabel>
+                        <InputLabel htmlFor="name">{adminPanelText.name}</InputLabel>
                         <Input
                         id="customer-name"
                         value={productDB.name}
                         onChange={setProductName}                    
                         aria-describedby="name-text"
                         />
-                        <FormHelperText id="name-text">Enter product name</FormHelperText>
+                        <FormHelperText id="name-text">{adminPanelText.name_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="price">Price</InputLabel>
+                        <InputLabel htmlFor="price">{adminPanelText.price}</InputLabel>
                         <Input
                         id="price"
                         value={productDB.price}
                         onChange={setProductPrice}                    
                         aria-describedby="price-text"
                         />
-                        <FormHelperText id="price-text">Enter product price</FormHelperText>
+                        <FormHelperText id="price-text">{adminPanelText.price_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="description-short">Description short</InputLabel>
+                        <InputLabel htmlFor="description-short">{adminPanelText.description_short}</InputLabel>
                         <Input
                         id="description-short"
                         value={productDB.description_short}
                         onChange={setProductDescriptionShort}                    
                         aria-describedby="description-short-text"
                         />
-                        <FormHelperText id="description-short-text">Enter product description short</FormHelperText>
+                        <FormHelperText id="description-short-text">{adminPanelText.description_short_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="description-full">Description full</InputLabel>
+                        <InputLabel htmlFor="description-full">{adminPanelText.description_full}</InputLabel>
                         <Input
                         id="description-full"
                         value={productDB.description_full}
                         onChange={setProductDescriptionFull}                    
                         aria-describedby="description-full-text"
                         />
-                        <FormHelperText id="description-full-text">Enter product description full</FormHelperText>
+                        <FormHelperText id="description-full-text">{adminPanelText.description_full_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="producer">Producer</InputLabel>
+                        <InputLabel htmlFor="producer">{adminPanelText.producer}</InputLabel>
                         <Input
                         id="producer"
                         value={productDB.producer}
                         onChange={setProductProduser}                    
                         aria-describedby="producer-text"
                         />
-                        <FormHelperText id="producer-text">Enter product producer</FormHelperText>
+                        <FormHelperText id="producer-text">{adminPanelText.producer_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="amount">Amount</InputLabel>
+                        <InputLabel htmlFor="amount">{adminPanelText.amount}</InputLabel>
                         <Input
                         id="amount"
                         value={productDB.amount}
                         onChange={setProductAmount}                    
                         aria-describedby="amount-text"
                         />
-                        <FormHelperText id="amount-text">Enter product amount</FormHelperText>
+                        <FormHelperText id="amount-text">{adminPanelText.amount_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="language">Language</InputLabel>
+                        <InputLabel htmlFor="language">{adminPanelText.language}</InputLabel>
                         <Input
                         id="language"
                         value={productDB.language}
                         onChange={setProductLanguage}                    
                         aria-describedby="language-text"
                         />
-                        <FormHelperText id="language-text">Enter product language</FormHelperText>
+                        <FormHelperText id="language-text">{adminPanelText.language_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="date">Date</InputLabel>
+                        <InputLabel htmlFor="date">{adminPanelText.date}</InputLabel>
                         <Input
                         id="date"
                         value={productDB.date}
                         onChange={setProductDate}                    
                         aria-describedby="date-text"
                         />
-                        <FormHelperText id="date-text">Enter product release date</FormHelperText>
+                        <FormHelperText id="date-text">{adminPanelText.date_hepl_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="platform">Platform</InputLabel>
+                        <InputLabel htmlFor="platform">{adminPanelText.platform}</InputLabel>
                         <Input
                         id="platform"
                         value={productDB.platform}
                         onChange={setProductPlatform}                    
                         aria-describedby="platform-text"
                         />
-                        <FormHelperText id="platform-text">Enter product platform</FormHelperText>
+                        <FormHelperText id="platform-text">{adminPanelText.platform_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
                     <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="images">Images</InputLabel>
+                        <InputLabel htmlFor="images">{adminPanelText.images}</InputLabel>
                         <Input
                         id="images"
-                        value={productDB.image}
+                        value={productDB.image === null ? productDB.image : productDB.image.join(' ')}
                         onChange={setProductImages}                    
                         aria-describedby="images-text"
                         />
-                        <FormHelperText id="images-text">Enter product src images</FormHelperText>
+                        <FormHelperText id="images-text">{adminPanelText.images_help_text}</FormHelperText>
                     </FormControl>
                 </div>
                 <div>
@@ -270,11 +266,11 @@ function AdminPanel (props) {
                             productDB.image !== null)} 
                         color="secondary"
                         onClick={() => {                            
-                            props.addProduct(productDB);
-                            productsList.push(productDB);
+                            props.addProduct(productDB);  
+                            window.location.reload(false);                            
                         }}
                     >
-                        Add
+                        {adminPanelText.add}
                     </Button> 
                 </div>               
             </form>
@@ -282,21 +278,23 @@ function AdminPanel (props) {
         )
     
     return (        
-        <div className='products-list' style={{textAlign: 'center'}}>
+        <div className='products-list center'>
             <div>
-                <Button color="primary" variant="contained" onClick={() => {setShowForm(!showForm)}}>Add Product</Button>
+                <Button color="primary" variant="contained" onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</Button>
             </div>
-            <div className='add-product-form' style={{marginTop: '10px'}}>
+            <div className='add-product-form'  style={{display: showForm ? 'block' : 'none'}}>
                 {addProductForm}
             </div>
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"               
-            >                
-                {products}  
-            </Grid>          
+            <div className='margin-top' style={{display: !showForm ? 'block' : 'none'}}>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"               
+                >                
+                    {products}  
+                </Grid> 
+            </div>         
         </div>    
     )
 }
