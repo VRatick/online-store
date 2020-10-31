@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProduct } from '../redux/actions/basket'
 import '../styles/product.css';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Snackbar } from '@material-ui/core';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import Alert from '@material-ui/lab/Alert';
 import productInfo from '../assets/customersBasket.json'
 
 function Product (props) {    
     const match = useLocation();
+    const [alert, setAlert] = useState(false)
+
+    const handleClose = (event, reason) => {
+        console.log(1)
+        if (reason === 'clickaway') {
+          return;
+        }
+        
+        setAlert(false);
+      };
     const product = match.state;
     const images = product.image.map( (image, index) => {
         return (
@@ -41,7 +52,8 @@ function Product (props) {
                         <p className='buy-container price'>{product.price}$</p>                        
                         <Button className='buy-container' style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
                                 () => {
-                                    props.addProductToBasket(product);                    
+                                    props.addProductToBasket(product);
+                                    setAlert(true)                       
                                 }
                             }>{productInfo.buyButton}<ShoppingBasketIcon></ShoppingBasketIcon>
                         </Button>
@@ -60,7 +72,11 @@ function Product (props) {
                     </Carousel>      
                 </div>
             </Grid>
-            
+            <Snackbar open={alert} autoHideDuration={2000} onClose={handleClose}>
+                    <Alert severity="success" onClose={handleClose}>
+                        {productInfo.add_to_the_basket_message}
+                    </Alert>
+            </Snackbar>
         </div>
     )
 }

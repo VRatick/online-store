@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { addProduct } from '../redux/actions/basket'
 import { connect } from 'react-redux';
 import '../styles/productslist.css'
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Snackbar } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import productInfo from '../assets/customersBasket.json'
 
 function ProductsList (props) {
+    const [alert, setAlert] = useState(false)
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setAlert(false);
+      };
+
     const db = props.allProducts;
     const products = db.map( (product) => {
         return (
@@ -34,10 +46,11 @@ function ProductsList (props) {
                 <div className='product-add-to-basket'>
                     <Button style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
                             () => {
-                                props.addProductToBasket(product);                    
+                                props.addProductToBasket(product);
+                                setAlert(true)                                                   
                             }
                         }><ShoppingBasketIcon></ShoppingBasketIcon></Button>
-                </div>
+                </div>                
             </div>
         )
     })
@@ -50,7 +63,12 @@ function ProductsList (props) {
                 alignItems="center"               
             >                
                 {products}  
-            </Grid>          
+            </Grid>
+            <Snackbar open={alert} autoHideDuration={2000} onClose={handleClose}>
+                    <Alert severity="success" onClose={handleClose}>
+                        {productInfo.add_to_the_basket_message}
+                    </Alert>
+            </Snackbar>          
         </div>    
     )
 }
