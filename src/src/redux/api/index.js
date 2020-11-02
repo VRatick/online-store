@@ -10,6 +10,11 @@ export default {
         return axios.post(`${apiPrefix}/products`, data);
     },
 
+    changeProduct(product) {        
+        return axios.put(`${apiPrefix}/products/${product}`, product);
+    },
+
+
     deleteProduct(productId) {
         return axios.delete(`${apiPrefix}/products/${productId}`);
     }

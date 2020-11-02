@@ -25,6 +25,10 @@ app.post('/products', (req, res) => {
     db.createProduct(req.body).then(data => res.send(data));
 });
 
+app.put('/products/:product', (req, res) => { 
+    db.changeProduct(req.body).then(data => res.send(data));
+});
+
 app.delete('/products/:uuid', (req, res) => {
     db.deleteProduct(req.params.uuid).then(data => res.send(data));
 });

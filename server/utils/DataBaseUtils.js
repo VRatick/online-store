@@ -29,6 +29,21 @@ export function createProduct(data) {
     return product.save();
 }
 
+export function changeProduct(product) {
+    return Product.find({uuid: product.uuid}).updateOne({
+        name: product.name,
+        price: product.price,
+        description_short: product.description_short,
+        description_full: product.description_full,
+        producer: product.producer,
+        amount: product.amount,
+        language: product.language,
+        date: product.date,
+        platform: product.platform,
+        image: product.image
+    })
+}
+
 export function deleteProduct(uuid) {
     return Product.find({uuid: uuid}).remove();
 }

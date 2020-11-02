@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addProductToDataBase, changeProductFromDataBase, removeProductFromDataBase } from '../redux/actions/products';
-import { Grid, FormControl, FormHelperText, Input, InputLabel, Button } from '@material-ui/core';
+import { Grid, FormControl, FormHelperText, Input, InputLabel, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { Carousel } from 'react-responsive-carousel';
 import adminPanelText from '../assets/adminPanel.json';
+import CreateIcon from '@material-ui/icons/Create';
 
 function AdminPanel (props) {
     const [productDB, setProductDB] = useState({
-        uuid: Date.now(),
+        uuid: null,
         name: null,
         price: null,
         description_short: null,
@@ -21,8 +22,17 @@ function AdminPanel (props) {
         image: null
     })
     const [showForm, setShowForm] = useState(false)
+    const [open, setOpen] = useState(false);    
     
     const db = props.allProducts   
+
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
 
     const setProductName = (event) => {
         const product = {...productDB};
@@ -32,6 +42,7 @@ function AdminPanel (props) {
 
     const setProductPrice = (event) => {
         const product = {...productDB};
+        product.uuid = Date.now();
         product.price = +event.target.value;        
         setProductDB(product);        
     }
@@ -123,6 +134,28 @@ function AdminPanel (props) {
                             props.deleteProduct(product.uuid)                            
                         }
                     }><HighlightOffIcon></HighlightOffIcon></Button>
+                    <Button variant="outlined" style={{marginTop: '5px', backgroundColor: '#FF0800', color: 'black'}} variant="contained" onClick={
+                        () => {
+                            handleClickOpen();                                                   
+                            setProductDB({...productDB,
+                                uuid: product.uuid,
+                                name: product.name,
+                                price: product.price,
+                                description_short: product.description_short,
+                                description_full: product.description_full,
+                                producer: product.producer,
+                                amount: product.amount,
+                                language: product.language,
+                                date: product.date,
+                                platform: product.platform,
+                                image: product.image,
+                                __v: product.__v,
+                                _id: product._id
+                            });
+                            console.log(productDB);
+                        }
+                    }><CreateIcon></CreateIcon>
+                    </Button>
                 </div>
             </div>
         )
@@ -250,7 +283,18 @@ function AdminPanel (props) {
                         />
                         <FormHelperText id="images-text">{adminPanelText.images_help_text}</FormHelperText>
                     </FormControl>
-                </div>
+                </div>                           
+            </form>
+        </div>
+        )
+    
+    return (        
+        <div className='products-list center'>
+            <div>
+                <Button color="primary" variant="contained" onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</Button>
+            </div>
+            <div className='add-product-form'  style={{display: showForm ? 'block' : 'none'}}>
+                {addProductForm}
                 <div>
                     <Button 
                         variant="contained" 
@@ -272,18 +316,7 @@ function AdminPanel (props) {
                     >
                         {adminPanelText.add}
                     </Button> 
-                </div>               
-            </form>
-        </div>
-        )
-    
-    return (        
-        <div className='products-list center'>
-            <div>
-                <Button color="primary" variant="contained" onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</Button>
-            </div>
-            <div className='add-product-form'  style={{display: showForm ? 'block' : 'none'}}>
-                {addProductForm}
+                </div>    
             </div>
             <div className='margin-top' style={{display: !showForm ? 'block' : 'none'}}>
                 <Grid
@@ -294,6 +327,33 @@ function AdminPanel (props) {
                 >                
                     {products}  
                 </Grid> 
+            </div>
+            <div>                
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    fullWidth={true}
+                >
+                    <DialogTitle id="alert-dialog-title">Change form</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {addProductForm}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button 
+                            variant="contained" 
+                            color="primary"
+                            onClick={() => {
+                                handleClose();
+                                props.changeProduct(productDB);
+                                console.log(props.allProducts); 
+                                }}>Change
+                        </Button>                        
+                    </DialogActions>
+                </Dialog>
             </div>         
         </div>    
     )

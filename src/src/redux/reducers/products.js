@@ -39,6 +39,13 @@ export default (state = initialState, action) => {
                     allProducts.splice(index, 1, product)
                 }
             })
+            api.changeProduct(product)
+                .then(() =>
+                    console.log('Succesful change')
+                )
+                .catch(err =>
+                    console.error(err)
+                );            
             return { ...state, allProducts };
         }
         case REMOVE_ITEM_FROM_DATABASE: {
