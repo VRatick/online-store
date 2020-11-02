@@ -29,9 +29,6 @@ function App (props) {
               <div>        
                 <Link to="/basket">                          
                   <ShoppingCartIcon style={{ width: '75px', height: '75px', color: 'black' }}></ShoppingCartIcon>   
-                </Link>            
-                <Link to="/adminpanel">
-                  <SupervisorAccountIcon disabled style={{ width: '75px', height: '75px', color: 'black'}}></SupervisorAccountIcon>
                 </Link>
               </div>     
         </div>
