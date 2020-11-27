@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { removeProduct } from '../redux/actions/basket';
 import { Grid, Select, MenuItem, TextField, FormControl, FormHelperText, Input, InputLabel, Button, InputAdornment} from '@material-ui/core';
 import countries from '../assets/counties.json';
-import customerBasket from '../assets/customersBasket.json';
+import customerBasket from '../assets/local/customersBasket.json';
 import { validationName, validationSurname, validationPhone, validationCity} from '../assets/validation';
 import inputPhoneReplace from '../components/inputPhoneReplace';
-import '../styles/basket.css';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import '../styles/basket.css';
 
 function Basket (props) {    
     const [customerInformation, setСustomerInformation] = useState({
@@ -127,7 +125,7 @@ function Basket (props) {
             </h1>
             <form>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.nameValidation === null || customerInformation.nameValidation === true ? false : true}>
+                    <FormControl fullWidth={true} error={customerInformation.nameValidation === false ? true : false}>
                         <InputLabel htmlFor="customer-name">{customerBasket.name}</InputLabel>
                         <Input
                         id="customer-name"
@@ -135,11 +133,11 @@ function Basket (props) {
                         onChange={setCustomerName}                    
                         aria-describedby="customer-name-text"
                         />
-                        <FormHelperText id="customer-name-text">{customerInformation.nameValidation === null || customerInformation.nameValidation === true ? customerBasket.nameMessage : customerBasket.validationError}</FormHelperText>
+                        <FormHelperText id="customer-name-text">{customerInformation.nameValidation === false ? customerBasket.validationError : customerBasket.nameMessage}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.surnameValidation === null || customerInformation.surnameValidation === true ? false : true}>
+                    <FormControl fullWidth={true} error={customerInformation.surnameValidation === false ? true : false}>
                         <InputLabel htmlFor="customer-surname">{customerBasket.surname}</InputLabel>
                         <Input
                         id="customer-surname"
@@ -147,11 +145,11 @@ function Basket (props) {
                         onChange={setCustomerSurname}                    
                         aria-describedby="customer-surname-text"
                         />
-                        <FormHelperText id="customer-surname-text">{customerInformation.surnameValidation === null || customerInformation.surnameValidation === true ? customerBasket.surnameMessage : customerBasket.validationError}</FormHelperText>
+                        <FormHelperText id="customer-surname-text">{customerInformation.surnameValidation === false ? customerBasket.validationError : customerBasket.surnameMessage}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.phoneValidation === null || customerInformation.phoneValidation === true ? false : true}>
+                    <FormControl fullWidth={true} error={customerInformation.phoneValidation === false ? true : false}>
                         <InputLabel htmlFor="customer-phone">{customerBasket.phone}</InputLabel>
                         <Input
                         id="customer-phone"
@@ -163,7 +161,7 @@ function Basket (props) {
                             "maxLength": "15"
                         }}                        
                         />
-                        <FormHelperText id="customer-phone-text">{customerInformation.phoneValidation === null || customerInformation.phoneValidation === true ? customerBasket.phoneMessage : customerBasket.validationError}</FormHelperText>
+                        <FormHelperText id="customer-phone-text">{customerInformation.phoneValidation === false ? customerBasket.validationError : customerBasket.phoneMessage}</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='basket-input'>
@@ -184,7 +182,7 @@ function Basket (props) {
                     </TextField>
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.cityValidation === null || customerInformation.cityValidation === true ? false : true}>
+                    <FormControl fullWidth={true} error={customerInformation.cityValidation === false ? true : false}>
                         <InputLabel htmlFor="customer-city">{customerBasket.city}</InputLabel>
                         <Input
                         id="customer-city"
@@ -192,7 +190,7 @@ function Basket (props) {
                         onChange={setCustomerCity}                    
                         aria-describedby="customer-city-text"
                         />
-                        <FormHelperText id="customer-city-text">{customerInformation.cityValidation === null || customerInformation.cityValidation === true ? customerBasket.cityMessage : customerBasket.validationError}</FormHelperText>
+                        <FormHelperText id="customer-city-text">{customerInformation.cityValidation === false ? customerBasket.validationError : customerBasket.cityMessage}</FormHelperText>
                     </FormControl>
                 </div>
                 <div>
@@ -310,13 +308,5 @@ function Basket (props) {
     
 }
 
-const mapStateToProps = ( state ) => ({
-    products: state.basket.products
-  });
-  
-const mapDispatchToProps = (dispatch) => ({
-    removeProductFromBasket: (productId) => dispatch(removeProduct(productId)),
-});
-  
-export default connect(mapStateToProps, mapDispatchToProps)(Basket);
+export default Basket;
 

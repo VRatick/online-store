@@ -1,41 +1,30 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { addProduct } from '../redux/actions/basket'
-import '../styles/product.css';
 import { Grid, Button, Snackbar } from '@material-ui/core';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import Alert from '@material-ui/lab/Alert';
-import productInfo from '../assets/customersBasket.json'
+import GetProductImages from '../components/getProductImages';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import Carousel from '../components/carousel';
+import productInfo from '../assets/local/customersBasket.json'
+import { buyButton } from '../styles/materialUIStyles';
+import '../styles/product.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
 
 function Product (props) {    
     const match = useLocation();
-    const [alert, setAlert] = useState(false)
-
-    const handleClose = (event, reason) => {
-        console.log(1)
+    const [showAlert, setShowAlert] = useState(false)
+    
+    const handleClose = (event, reason) => {        
         if (reason === 'clickaway') {
           return;
         }
         
-        setAlert(false);
+        setShowAlert(false);
       };
     const product = match.state;
-    const images = product.image.map( (image, index) => {
-        return (
-            <div key ={index + 1} style={{ 
-                height: '600px', 
-                width: '600px',  
-                background: `url(${image}) 100% 100% no-repeat` , 
-                backgroundSize: 'contain',
-                backgroundPosition: 'center',
-                backgroundColor: '#BEBEBE' 
-                }}>      
-            </div>                   
-        )
-    })
+    const images = GetProductImages(product)
+    
     return (
         <div className='single-product'>
             <Grid            
@@ -50,13 +39,12 @@ function Product (props) {
                     </div>
                     <div className='single-product-buy'>
                         <p className='buy-container price'>{product.price}$</p>                        
-                        <Button className='buy-container' style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
+                        <Button className='buy-container buy-button' style={buyButton} variant="contained" onClick={
                                 () => {
                                     props.addProductToBasket(product);
-                                    setAlert(true)                       
+                                    setShowAlert(true)                       
                                 }
-                            }>{productInfo.buyButton}<ShoppingBasketIcon></ShoppingBasketIcon>
-                        </Button>
+                            }>{productInfo.buyButton}<ShoppingBasketIcon /></Button>
                     </div>
                     <div className='single-product-description'>                        
                         <p className='description-text'>{product.description_full}</p>
@@ -67,12 +55,10 @@ function Product (props) {
                     </div>                    
                 </div>
                 <div className='single-product-images'>
-                    <Carousel showThumbs={false}>
-                        {images}
-                    </Carousel>      
+                    <Carousel images={images}/>                           
                 </div>
             </Grid>
-            <Snackbar open={alert} autoHideDuration={2000} onClose={handleClose}>
+            <Snackbar open={showAlert} autoHideDuration={2000} onClose={handleClose}>
                     <Alert severity="success" onClose={handleClose}>
                         {productInfo.add_to_the_basket_message}
                     </Alert>
@@ -81,9 +67,4 @@ function Product (props) {
     )
 }
   
-const mapDispatchToProps = (dispatch) => ({
-    addProductToBasket: (product) => dispatch(addProduct(product)),
-});
-  
-export default connect(null, mapDispatchToProps)(Product);
-
+export default Product;

@@ -26,7 +26,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start-server": "babel-node server/app.js",
+    "start-server": "cd src && babel-node server/app.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

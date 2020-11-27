@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
             allProducts.push(product);
             api.createProduct(product)
                 .then(() =>
-                    console.log('Succesful add')
+                    console.log('Successful add')
                 )
                 .catch(err =>
                     console.error(err)
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
             })
             api.changeProduct(product)
                 .then(() =>
-                    console.log('Succesful change')
+                    console.log('Successful change')
                 )
                 .catch(err =>
                     console.error(err)
@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
             })
             api.deleteProduct(productId)
                 .then(() =>
-                    console.log('Succesful remove')
+                    console.log('Successful remove')
                 )
                 .catch(err =>
                     console.error(err)

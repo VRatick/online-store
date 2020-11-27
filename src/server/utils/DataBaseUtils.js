@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { config } from '../etc/config.js';
+import { config } from '../config.js';
 import '../models/Product.js';
 const Product = mongoose.model('Product');
 

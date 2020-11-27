@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { addProductToDataBase, changeProductFromDataBase, removeProductFromDataBase } from '../redux/actions/products';
 import { Grid, FormControl, FormHelperText, Input, InputLabel, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { Carousel } from 'react-responsive-carousel';
-import adminPanelText from '../assets/adminPanel.json';
 import CreateIcon from '@material-ui/icons/Create';
+import Carousel from '../components/carousel';
+import adminPanelText from '../assets/local/adminPanel.json';
+import { buyButton, changeButton } from '../styles/materialUIStyles';
+import GetAdmProductImages from '../components/getAdmProductImages';
 
 function AdminPanel (props) {
     const [productDB, setProductDB] = useState({
@@ -22,7 +22,11 @@ function AdminPanel (props) {
         image: null
     })
     const [showForm, setShowForm] = useState(false)
-    const [open, setOpen] = useState(false);    
+    const [open, setOpen] = useState(false);
+    const modal = {
+        show: {display: showForm ? 'block' : 'none'},
+        hide: {display: showForm ? 'none' : 'block'}
+    };    
     
     const db = props.allProducts   
 
@@ -96,25 +100,11 @@ function AdminPanel (props) {
     }
     
     const products = db.map( (product) => {
-        const images = product.image.map( (image, index) => {
-            return (
-                <div key ={index + 1} style={{ 
-                    height: '150px', 
-                    width: '150px',  
-                    background: `url(${image}) 100% 100% no-repeat` , 
-                    backgroundSize: 'contain',
-                    backgroundPosition: 'center',
-                    backgroundColor: '#BEBEBE' 
-                    }}>      
-                </div>                   
-            )
-        })
+        const images = GetAdmProductImages(product);
         return (
             <div key={product.uuid} className='product height'>
                 <div className='product-image'>                                      
-                    <Carousel showThumbs={false}>
-                        {images}
-                    </Carousel>              
+                    <Carousel images={images}/>                                  
                 </div>
                 <div className='product-information'>
                     <p>{adminPanelText.uuid}: {product.uuid}</p>                 
@@ -129,12 +119,12 @@ function AdminPanel (props) {
                     <p>{adminPanelText.platform}: {product.platform}</p>
                 </div>
                 <div className='product-add-to-basket'>
-                    <Button className="remove-product" style={{backgroundColor: '#00A046', color: 'white'}} variant="contained" onClick={
+                    <Button className="remove-product" style={buyButton} variant="contained" onClick={
                         () => {
                             props.deleteProduct(product.uuid)                            
                         }
-                    }><HighlightOffIcon></HighlightOffIcon></Button>
-                    <Button variant="outlined" style={{marginTop: '5px', backgroundColor: '#FF0800', color: 'black'}} variant="contained" onClick={
+                    }><HighlightOffIcon/></Button>
+                    <Button variant="outlined" style={changeButton} variant="contained" onClick={
                         () => {
                             handleClickOpen();                                                   
                             setProductDB({...productDB,
@@ -154,7 +144,7 @@ function AdminPanel (props) {
                             });
                             console.log(productDB);
                         }
-                    }><CreateIcon></CreateIcon>
+                    }><CreateIcon/>
                     </Button>
                 </div>
             </div>
@@ -293,7 +283,7 @@ function AdminPanel (props) {
             <div>
                 <Button color="primary" variant="contained" onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</Button>
             </div>
-            <div className='add-product-form'  style={{display: showForm ? 'block' : 'none'}}>
+            <div className='add-product-form'  style={modal.show}>
                 {addProductForm}
                 <div>
                     <Button 
@@ -318,7 +308,7 @@ function AdminPanel (props) {
                     </Button> 
                 </div>    
             </div>
-            <div className='margin-top' style={{display: !showForm ? 'block' : 'none'}}>
+            <div className='margin-top' style={modal.hide}>
                 <Grid
                     container
                     direction="row"
@@ -348,8 +338,7 @@ function AdminPanel (props) {
                             color="primary"
                             onClick={() => {
                                 handleClose();
-                                props.changeProduct(productDB);
-                                console.log(props.allProducts); 
+                                props.changeProduct(productDB);                                
                                 }}>Change
                         </Button>                        
                     </DialogActions>
@@ -359,17 +348,5 @@ function AdminPanel (props) {
     )
 }
 
-const mapStateToProps = ( state ) => ({
-    allProducts: state.products.allProducts,    
-  });
-
-const mapDispatchToProps = (dispatch) => ({    
-    addProduct: (product) => dispatch(addProductToDataBase(product)),
-    changeProduct: (product) => dispatch(changeProductFromDataBase(product)),
-    deleteProduct: (productId) => dispatch(removeProductFromDataBase(productId)),
-    
-});
-  
-export default connect(mapStateToProps, mapDispatchToProps)(AdminPanel);
-
+export default AdminPanel;
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiPrefix } from '../../etc/config.json'
+import { apiPrefix } from '../../config.json'
 
 export default {
     listProducts() {        
