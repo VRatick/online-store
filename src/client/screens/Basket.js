@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Grid, Select, MenuItem, TextField, FormControl, FormHelperText, Input, InputLabel, Button, InputAdornment} from '@material-ui/core';
 import countries from '../assets/counties.json';
 import customerBasket from '../assets/local/customersBasket.json';
+import GameIcon from '../assets/images/GameIcon.png'
+import DeleteIcon from '../assets/images/DeleteIcon.png'
+import SmileIcon from '../assets/images/SmileIcon.png'
 import { validationName, validationSurname, validationPhone, validationCity} from '../assets/validation';
 import inputPhoneReplace from '../components/inputPhoneReplace';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import '../styles/basket.css';
 
 function Basket (props) {    
@@ -16,10 +15,10 @@ function Basket (props) {
         phone: null,
         country: '',
         city: null,
-        nameValidation: null,        
-        surnameValidation: null,
-        phoneValidation: null,        
-        cityValidation: null
+        nameValidation: true,        
+        surnameValidation: true,
+        phoneValidation: true,        
+        cityValidation: true
     })
     const [deal, setDeal] = useState(false);
     const [productsList, setProductsList] = useState( () => {
@@ -124,90 +123,50 @@ function Basket (props) {
                 {customerBasket.buyerInformation}
             </h1>
             <form>
-                <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.nameValidation === false ? true : false}>
-                        <InputLabel htmlFor="customer-name">{customerBasket.name}</InputLabel>
-                        <Input
-                        id="customer-name"
-                        value={customerInformation.name}
-                        onChange={setCustomerName}                    
-                        aria-describedby="customer-name-text"
-                        />
-                        <FormHelperText id="customer-name-text">{customerInformation.nameValidation === false ? customerBasket.validationError : customerBasket.nameMessage}</FormHelperText>
-                    </FormControl>
+                <div className='basket-input'>                
+                    <p>{customerBasket.name}</p>
+                    <input className='text-input' value={customerInformation.name} onChange={setCustomerName} placeholder={customerBasket.nameMessage}></input>  
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.surnameValidation === false ? true : false}>
-                        <InputLabel htmlFor="customer-surname">{customerBasket.surname}</InputLabel>
-                        <Input
-                        id="customer-surname"
-                        value={customerInformation.surname}
-                        onChange={setCustomerSurname}                    
-                        aria-describedby="customer-surname-text"
-                        />
-                        <FormHelperText id="customer-surname-text">{customerInformation.surnameValidation === false ? customerBasket.validationError : customerBasket.surnameMessage}</FormHelperText>
-                    </FormControl>
+                    <p>{customerBasket.surname}</p>
+                    <input className='text-input' value={customerInformation.surname} onChange={setCustomerSurname} placeholder={customerBasket.surnameMessage}></input>
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.phoneValidation === false ? true : false}>
-                        <InputLabel htmlFor="customer-phone">{customerBasket.phone}</InputLabel>
-                        <Input
-                        id="customer-phone"
-                        value={customerInformation.phone}
-                        onChange={setCustomerPhone}                    
-                        aria-describedby="customer-phone-text"                    
-                        startAdornment={<InputAdornment position="start">+38</InputAdornment>}
-                        inputProps={{
-                            "maxLength": "15"
-                        }}                        
-                        />
-                        <FormHelperText id="customer-phone-text">{customerInformation.phoneValidation === false ? customerBasket.validationError : customerBasket.phoneMessage}</FormHelperText>
-                    </FormControl>
+                    <p>{customerBasket.phone}</p>
+                    <input className='text-input' value={customerInformation.phone} onChange={setCustomerPhone} placeholder={customerBasket.phoneMessage}></input>
                 </div>
                 <div className='basket-input'>
-                    <TextField
-                        fullWidth={true}
-                        id="customer-country"
-                        select
-                        label={customerBasket.country}
+                    <p>{customerBasket.country}</p>
+                    <select                        
+                        className='text-input'
                         value={customerInformation.country}
-                        onChange={setCustomerCountry}
-                        helperText={customerBasket.countryMessage}
+                        onChange={setCustomerCountry}                        
                         >
                         {countries.map((country) => (
-                            <MenuItem key={country.code} value={country.name}>
+                            <option key={country.code} value={country.name}>
                             {country.name}
-                            </MenuItem>
+                            </option>
                         ))}
-                    </TextField>
+                    </select>
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true} error={customerInformation.cityValidation === false ? true : false}>
-                        <InputLabel htmlFor="customer-city">{customerBasket.city}</InputLabel>
-                        <Input
-                        id="customer-city"
-                        value={customerInformation.city}
-                        onChange={setCustomerCity}                    
-                        aria-describedby="customer-city-text"
-                        />
-                        <FormHelperText id="customer-city-text">{customerInformation.cityValidation === false ? customerBasket.validationError : customerBasket.cityMessage}</FormHelperText>
-                    </FormControl>
+                    <p>{customerBasket.city}</p>
+                    <input className='text-input' value={customerInformation.city} onChange={setCustomerCity} placeholder={customerBasket.cityMessage}></input>                      
                 </div>
                 <div>
-                    <Button 
-                        variant="contained" 
+                    <button                         
                         disabled={customerInformation.nameValidation && 
                         customerInformation.surnameValidation && 
                         customerInformation.phoneValidation && 
                         customerInformation.country !== null && 
-                        customerInformation.cityValidation ? false : true} 
-                        color="secondary"
+                        customerInformation.cityValidation ? false : true}                         
                         onClick={() => {
                             setDeal(true)
                         }}
+                        className='buy-button'
                     >
                         {customerBasket.buyButton}
-                    </Button> 
+                    </button> 
                 </div>               
             </form>
         </div>
@@ -216,7 +175,7 @@ function Basket (props) {
     const products = props.products.length !== 0 ? props.products.map( (product) => {             
         let amount = [];         
         for (let i = 1; i <= product.amount; i++) {
-            amount.push(<MenuItem value={i}>{i}</MenuItem>)
+            amount.push(<option key={i+1} value={i}>{i}</option>)
         }
         let productInfo = {} ;
             productsList.forEach( (item) => {
@@ -240,14 +199,14 @@ function Basket (props) {
                         </div>
                         <div className='basket-product-amount'>
                             <p>{customerBasket.amount}</p>
-                            <Select labelId={product.name} id={product.name} value={productInfo.amount} onChange={
+                            <select className='amount-input' value={productInfo.amount} onChange={
                                 (event) => {
                                     setProductAmount(event, product.uuid)
                                     changeTotalSum()
                                 }
                             }>
                                 {amount}
-                            </Select>
+                            </select>
                         </div>
                         <div className='basket-product-price'>
                             <p>{customerBasket.total}</p>
@@ -256,7 +215,7 @@ function Basket (props) {
                     </div>
                 </div>
                 <div className='basket-product-remove-from-basket'>
-                    <Button onClick={ 
+                    <button onClick={ 
                             () => {
                             props.removeProductFromBasket(product.uuid)
                             productsList.forEach( (item, index) => {
@@ -266,12 +225,16 @@ function Basket (props) {
                             })
                             changeTotalSum();                                               
                         }
-                    }><HighlightOffIcon></HighlightOffIcon></Button>
+                    }
+                    className='change-button'
+                    >
+                        <img className='basket-icon' src={DeleteIcon} />
+                    </button>
                 </div>
             </div>
         )
     }) : <div className='basket-empty'>
-            <VideogameAssetIcon fontSize='large'></VideogameAssetIcon>
+            <img className='basket-icon' src={GameIcon} />
             <p>{customerBasket.emptyBasket}</p>
         </div>;    
     
@@ -279,19 +242,14 @@ function Basket (props) {
         <div className='basket-container'>
             <div className='basket-deal-message'>
                 <div className='basket-deal-text'>
-                    <EmojiEmotionsIcon fontSize='large'></EmojiEmotionsIcon>
+                    <img className='basket-icon' src={SmileIcon} />    
                     <p>{customerBasket.dealMessage}</p>
                 </div>
             </div>
         </div>
     ) : (          
         <div className='basket-container'>
-            <Grid            
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"               
-            > 
+            <div className='flex-container'>  
                 <div className='basket-products'>
                     <div className='basket-products-list'>
                         {products}
@@ -301,7 +259,7 @@ function Basket (props) {
                     </div>      
                 </div>                      
                 {userForm}  
-            </Grid>          
+            </div>          
         </div>
         
     ) 

@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Button } from '@material-ui/core';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import { buyButton } from '../styles/materialUIStyles';
-
+import BasketIcon from '../assets/images/BasketIcon.png'
 
 function GetAllProducts (props) {
 
@@ -31,12 +28,13 @@ function GetAllProducts (props) {
                     </Link>
                 </div>
                 <div className='product-add-to-basket'>
-                    <Button style={buyButton} variant="contained" onClick={
-                            () => {
-                                props.addProductToBasket(product);
-                                props.setAlert(true)                                                   
-                            }
-                        }><ShoppingBasketIcon/></Button>
+                    <button className='buy-button' onClick={
+                        () => {
+                            props.addProductToBasket(product)                                                                         
+                        }
+                    }>
+                        <img className='basket-icon' src={BasketIcon} />
+                    </button>
                 </div>                
             </div>
         )

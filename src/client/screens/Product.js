@@ -1,50 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Grid, Button, Snackbar } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import GetProductImages from '../components/getProductImages';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import BasketIcon from '../assets/images/BasketIcon.png'
 import Carousel from '../components/carousel';
-import productInfo from '../assets/local/customersBasket.json'
-import { buyButton } from '../styles/materialUIStyles';
 import '../styles/product.css';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-
 
 function Product (props) {    
-    const match = useLocation();
-    const [showAlert, setShowAlert] = useState(false)
-    
-    const handleClose = (event, reason) => {        
-        if (reason === 'clickaway') {
-          return;
-        }
-        
-        setShowAlert(false);
-      };
+    const match = useLocation();    
     const product = match.state;
-    const images = GetProductImages(product)
+    const images = GetProductImages(product, 'normal')
     
     return (
         <div className='single-product'>
-            <Grid            
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"               
-            >                
+            <div className='flex-container'>  
                 <div className='single-product-full-information'>
                     <div className='single-product-name'>
                         <p>{product.name}</p>
                     </div>
                     <div className='single-product-buy'>
                         <p className='buy-container price'>{product.price}$</p>                        
-                        <Button className='buy-container buy-button' style={buyButton} variant="contained" onClick={
-                                () => {
-                                    props.addProductToBasket(product);
-                                    setShowAlert(true)                       
-                                }
-                            }>{productInfo.buyButton}<ShoppingBasketIcon /></Button>
+                        <button className='buy-button buy-container' onClick={
+                            () => {
+                                props.addProductToBasket(product);                                                          
+                            }
+                        }>                            
+                            <img className='basket-icon' src={BasketIcon} />
+                        </button>
                     </div>
                     <div className='single-product-description'>                        
                         <p className='description-text'>{product.description_full}</p>
@@ -57,12 +38,7 @@ function Product (props) {
                 <div className='single-product-images'>
                     <Carousel images={images}/>                           
                 </div>
-            </Grid>
-            <Snackbar open={showAlert} autoHideDuration={2000} onClose={handleClose}>
-                    <Alert severity="success" onClose={handleClose}>
-                        {productInfo.add_to_the_basket_message}
-                    </Alert>
-            </Snackbar>
+            </div>            
         </div>
     )
 }

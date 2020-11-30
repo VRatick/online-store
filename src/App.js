@@ -6,10 +6,9 @@ import AdminPanel from './client/redux/connect/AdminPanel';
 import Basket from './client/redux/connect/Basket';
 import ProductsList from './client/redux/connect/ProductsList';
 import Product from './client/redux/connect/Product';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import BasketIcon from './client/assets/images/BasketIcon.png';
 import { getProductsFromDataBase } from './client/redux/actions/products';
 import { apiPrefix } from './client/config.json'
-import { icon } from './client/styles/materialUIStyles'
 import xboxLogo from './client/assets/images/xboxLogo.png'
 import './client/styles/app.css';
 
@@ -29,7 +28,7 @@ function App (props) {
               </Link>
               <div>        
                 <Link to="/basket">                          
-                  <ShoppingCartIcon style={icon}></ShoppingCartIcon>   
+                  <img className='banner' src={BasketIcon} />
                 </Link>
               </div>     
         </div>

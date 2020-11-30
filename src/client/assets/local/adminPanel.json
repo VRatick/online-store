@@ -22,5 +22,6 @@
     "images_help_text" : "Enter product src images",
     "add": "Add",
     "add_product": "Add product",
-    "show_products": "Show products"
+    "show_products": "Show products",
+    "change_product": "Change product"
 }

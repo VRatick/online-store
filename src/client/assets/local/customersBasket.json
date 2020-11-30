@@ -6,7 +6,7 @@
     "country": "Country",
     "nameMessage": "Enter your name",
     "surnameMessage": "Enter your surname",
-    "phoneMessage": "Enter your phone",
+    "phoneMessage": "Enter your phone (XXX) XXX-XXXX",
     "cityMessage": "Enter your city",
     "countryMessage": "Select your country",
     "validationError": "Validation error",

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, FormControl, FormHelperText, Input, InputLabel, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import CreateIcon from '@material-ui/icons/Create';
 import Carousel from '../components/carousel';
 import adminPanelText from '../assets/local/adminPanel.json';
-import { buyButton, changeButton } from '../styles/materialUIStyles';
-import GetAdmProductImages from '../components/getAdmProductImages';
+import DeleteIcon from '../assets/images/DeleteIcon.png'
+import PenIcon from '../assets/images/PenIcon.svg';
+import GetProductImages from '../components/getProductImages';
+import '../styles/adminpanel.css'
 
 function AdminPanel (props) {
     const [productDB, setProductDB] = useState({
@@ -23,12 +22,26 @@ function AdminPanel (props) {
     })
     const [showForm, setShowForm] = useState(false)
     const [open, setOpen] = useState(false);
-    const modal = {
+    const form = {
         show: {display: showForm ? 'block' : 'none'},
-        hide: {display: showForm ? 'none' : 'block'}
+        hide: {display: showForm ? 'none' : 'block'},
+        modal: {display: open ? 'block' : 'none'}
     };    
     
-    const db = props.allProducts   
+    const db = props.allProducts
+    
+    const buttonDisbaled = () => {
+        return !(productDB.name && 
+            productDB.price && 
+            productDB.description_short &&
+            productDB.description_full && 
+            productDB.producer &&
+            productDB.amount &&
+            productDB.language &&
+            productDB.date &&
+            productDB.platform &&
+            productDB.image !== null)
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -63,7 +76,7 @@ function AdminPanel (props) {
         setProductDB(product);        
     }
 
-    const setProductProduser = (event) => {
+    const setProductProducer = (event) => {
         const product = {...productDB};
         product.producer = event.target.value;        
         setProductDB(product);        
@@ -100,7 +113,7 @@ function AdminPanel (props) {
     }
     
     const products = db.map( (product) => {
-        const images = GetAdmProductImages(product);
+        const images = GetProductImages(product, 'small');
         return (
             <div key={product.uuid} className='product height'>
                 <div className='product-image'>                                      
@@ -119,14 +132,13 @@ function AdminPanel (props) {
                     <p>{adminPanelText.platform}: {product.platform}</p>
                 </div>
                 <div className='product-add-to-basket'>
-                    <Button className="remove-product" style={buyButton} variant="contained" onClick={
+                    <button className="remove-product buy-button" onClick={
                         () => {
                             props.deleteProduct(product.uuid)                            
                         }
-                    }><HighlightOffIcon/></Button>
-                    <Button variant="outlined" style={changeButton} variant="contained" onClick={
-                        () => {
-                            handleClickOpen();                                                   
+                    }><img className='basket-icon' src={DeleteIcon} /></button>
+                    <button className='change-button' onClick={
+                        () => {                                                                           
                             setProductDB({...productDB,
                                 uuid: product.uuid,
                                 name: product.name,
@@ -141,138 +153,58 @@ function AdminPanel (props) {
                                 image: product.image,
                                 __v: product.__v,
                                 _id: product._id
-                            });
-                            console.log(productDB);
+                            });   
+                            handleClickOpen();                             
                         }
-                    }><CreateIcon/>
-                    </Button>
+                    }><img className='basket-icon' src={PenIcon} />
+                    </button>
                 </div>
             </div>
         )
     })
 
     const addProductForm = (        
-        <div className=''>            
+        <div>            
             <form>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="name">{adminPanelText.name}</InputLabel>
-                        <Input
-                        id="customer-name"
-                        value={productDB.name}
-                        onChange={setProductName}                    
-                        aria-describedby="name-text"
-                        />
-                        <FormHelperText id="name-text">{adminPanelText.name_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.name}</p>
+                    <input className='text-input' value={productDB.name} onChange={setProductName} placeholder={adminPanelText.name_help_text}></input>                   
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="price">{adminPanelText.price}</InputLabel>
-                        <Input
-                        id="price"
-                        value={productDB.price}
-                        onChange={setProductPrice}                    
-                        aria-describedby="price-text"
-                        />
-                        <FormHelperText id="price-text">{adminPanelText.price_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.price}</p>
+                    <input className='text-input' value={productDB.price} onChange={setProductPrice} placeholder={adminPanelText.price_help_text}></input> 
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="description-short">{adminPanelText.description_short}</InputLabel>
-                        <Input
-                        id="description-short"
-                        value={productDB.description_short}
-                        onChange={setProductDescriptionShort}                    
-                        aria-describedby="description-short-text"
-                        />
-                        <FormHelperText id="description-short-text">{adminPanelText.description_short_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.description_short}</p>
+                    <input className='text-input' value={productDB.description_short} onChange={setProductDescriptionShort} placeholder={adminPanelText.description_short_help_text}></input>   
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="description-full">{adminPanelText.description_full}</InputLabel>
-                        <Input
-                        id="description-full"
-                        value={productDB.description_full}
-                        onChange={setProductDescriptionFull}                    
-                        aria-describedby="description-full-text"
-                        />
-                        <FormHelperText id="description-full-text">{adminPanelText.description_full_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.description_full}</p>
+                    <input className='text-input' value={productDB.description_full} onChange={setProductDescriptionFull} placeholder={adminPanelText.description_full_help_text}></input>  
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="producer">{adminPanelText.producer}</InputLabel>
-                        <Input
-                        id="producer"
-                        value={productDB.producer}
-                        onChange={setProductProduser}                    
-                        aria-describedby="producer-text"
-                        />
-                        <FormHelperText id="producer-text">{adminPanelText.producer_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.producer}</p>
+                    <input className='text-input' value={productDB.producer} onChange={setProductProducer} placeholder={adminPanelText.producer_help_text}></input>  
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="amount">{adminPanelText.amount}</InputLabel>
-                        <Input
-                        id="amount"
-                        value={productDB.amount}
-                        onChange={setProductAmount}                    
-                        aria-describedby="amount-text"
-                        />
-                        <FormHelperText id="amount-text">{adminPanelText.amount_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.amount}</p>
+                    <input className='text-input' value={productDB.amount} onChange={setProductAmount} placeholder={adminPanelText.amount_help_text}></input> 
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="language">{adminPanelText.language}</InputLabel>
-                        <Input
-                        id="language"
-                        value={productDB.language}
-                        onChange={setProductLanguage}                    
-                        aria-describedby="language-text"
-                        />
-                        <FormHelperText id="language-text">{adminPanelText.language_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.language}</p>
+                    <input className='text-input' value={productDB.language} onChange={setProductLanguage} placeholder={adminPanelText.language_help_text}></input> 
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="date">{adminPanelText.date}</InputLabel>
-                        <Input
-                        id="date"
-                        value={productDB.date}
-                        onChange={setProductDate}                    
-                        aria-describedby="date-text"
-                        />
-                        <FormHelperText id="date-text">{adminPanelText.date_hepl_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.date}</p>
+                    <input className='text-input' value={productDB.date} onChange={setProductDate} placeholder={adminPanelText.date_help_text}></input> 
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="platform">{adminPanelText.platform}</InputLabel>
-                        <Input
-                        id="platform"
-                        value={productDB.platform}
-                        onChange={setProductPlatform}                    
-                        aria-describedby="platform-text"
-                        />
-                        <FormHelperText id="platform-text">{adminPanelText.platform_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.platform}</p>
+                    <input className='text-input' value={productDB.platform} onChange={setProductPlatform} placeholder={adminPanelText.platform_help_text}></input> 
                 </div>
                 <div className='basket-input'>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="images">{adminPanelText.images}</InputLabel>
-                        <Input
-                        id="images"
-                        value={productDB.image === null ? productDB.image : productDB.image.join(' ')}
-                        onChange={setProductImages}                    
-                        aria-describedby="images-text"
-                        />
-                        <FormHelperText id="images-text">{adminPanelText.images_help_text}</FormHelperText>
-                    </FormControl>
+                    <p>{adminPanelText.images}</p>
+                    <input className='text-input' value={productDB.image === null ? productDB.image : productDB.image.join(' ')} onChange={setProductImages} placeholder={adminPanelText.images_help_text}></input>  
                 </div>                           
             </form>
         </div>
@@ -281,68 +213,47 @@ function AdminPanel (props) {
     return (        
         <div className='products-list center'>
             <div>
-                <Button color="primary" variant="contained" onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</Button>
+                <button className='buy-button' onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</button>
             </div>
-            <div className='add-product-form'  style={modal.show}>
+            <div className='add-product-form'  style={form.show}>
                 {addProductForm}
                 <div>
-                    <Button 
-                        variant="contained" 
-                        disabled={!(productDB.name && 
-                            productDB.price && 
-                            productDB.description_short &&
-                            productDB.description_full && 
-                            productDB.producer &&
-                            productDB.amount &&
-                            productDB.language &&
-                            productDB.date &&
-                            productDB.platform &&
-                            productDB.image !== null)} 
-                        color="secondary"
+                    <button                         
+                        disabled={buttonDisbaled()} 
+                        className='buy-button'
                         onClick={() => {                            
                             props.addProduct(productDB);  
                             window.location.reload(false);                            
                         }}
                     >
                         {adminPanelText.add}
-                    </Button> 
+                    </button> 
                 </div>    
             </div>
-            <div className='margin-top' style={modal.hide}>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"               
-                >                
+            <div className='margin-top' style={form.hide}>
+                <div className='flex-container'>                     
                     {products}  
-                </Grid> 
+                </div> 
             </div>
             <div>                
-                <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    fullWidth={true}
-                >
-                    <DialogTitle id="alert-dialog-title">Change form</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {addProductForm}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button 
-                            variant="contained" 
-                            color="primary"
-                            onClick={() => {
-                                handleClose();
-                                props.changeProduct(productDB);                                
-                                }}>Change
-                        </Button>                        
-                    </DialogActions>
-                </Dialog>
+                <div class="modal" style={form.modal}>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">{adminPanelText.change_product}</h3>                                
+                            </div>
+                            <div class="modal-body">    
+                                <p>{addProductForm}</p>
+                                <button class='buy-button' onClick={
+                                    () => {
+                                        handleClose()
+                                        props.changeProduct(productDB);
+                                    }
+                                }>{adminPanelText.change_product}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>         
         </div>    
     )

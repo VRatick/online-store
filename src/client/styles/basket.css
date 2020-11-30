@@ -37,11 +37,11 @@
 }
 
 .basket-product-information {
-    width: 390px;
+    width: 370px;
 }
 
 .basket-product-remove-from-basket {
-    width: 60px;
+    width: 80px;
     margin: auto;
 }
 
@@ -79,7 +79,9 @@
 }
 
 .basket-input {
-    margin: 5px 5px 5px 5px;
+    margin: 5px 10px 5px 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .basket-deal-message {
@@ -94,4 +96,14 @@
 
 .basket-deal-text {
     margin-top: 100px;      
+}
+
+.amount-input {
+  width: 100%;
+  padding: 1px 15px;
+  margin-bottom: 5px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
