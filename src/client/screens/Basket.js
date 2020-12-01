@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import countries from '../assets/counties.json';
 import customerBasket from '../assets/local/customersBasket.json';
+import UserForm from '../components/userForm'
+import GetBasketProducts from '../components/getBasketProducts';
 import GameIcon from '../assets/images/GameIcon.png'
-import DeleteIcon from '../assets/images/DeleteIcon.png'
 import SmileIcon from '../assets/images/SmileIcon.png'
 import { validationName, validationSurname, validationPhone, validationCity} from '../assets/validation';
 import inputPhoneReplace from '../components/inputPhoneReplace';
 import '../styles/basket.css';
+
 
 function Basket (props) {    
     const [customerInformation, setСustomerInformation] = useState({
@@ -115,125 +116,43 @@ function Basket (props) {
             sum += product.amount * +product.price;
         })
         setSum(sum);        
-    }    
+    }
+    
+    const disabledButton = () => {
+        return customerInformation.nameValidation && 
+        customerInformation.surnameValidation && 
+        customerInformation.phoneValidation && 
+        customerInformation.country !== null && 
+        customerInformation.cityValidation ? false : true 
+    }
 
     const userForm = props.products.length !== 0 ? (
         <div className='basket-user-information'>
             <h1>
                 {customerBasket.buyerInformation}
             </h1>
-            <form>
-                <div className='basket-input'>                
-                    <p>{customerBasket.name}</p>
-                    <input className='text-input' value={customerInformation.name} onChange={setCustomerName} placeholder={customerBasket.nameMessage}></input>  
-                </div>
-                <div className='basket-input'>
-                    <p>{customerBasket.surname}</p>
-                    <input className='text-input' value={customerInformation.surname} onChange={setCustomerSurname} placeholder={customerBasket.surnameMessage}></input>
-                </div>
-                <div className='basket-input'>
-                    <p>{customerBasket.phone}</p>
-                    <input className='text-input' value={customerInformation.phone} onChange={setCustomerPhone} placeholder={customerBasket.phoneMessage}></input>
-                </div>
-                <div className='basket-input'>
-                    <p>{customerBasket.country}</p>
-                    <select                        
-                        className='text-input'
-                        value={customerInformation.country}
-                        onChange={setCustomerCountry}                        
-                        >
-                        {countries.map((country) => (
-                            <option key={country.code} value={country.name}>
-                            {country.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className='basket-input'>
-                    <p>{customerBasket.city}</p>
-                    <input className='text-input' value={customerInformation.city} onChange={setCustomerCity} placeholder={customerBasket.cityMessage}></input>                      
-                </div>
-                <div>
-                    <button                         
-                        disabled={customerInformation.nameValidation && 
-                        customerInformation.surnameValidation && 
-                        customerInformation.phoneValidation && 
-                        customerInformation.country !== null && 
-                        customerInformation.cityValidation ? false : true}                         
-                        onClick={() => {
-                            setDeal(true)
-                        }}
-                        className='buy-button'
-                    >
-                        {customerBasket.buyButton}
-                    </button> 
-                </div>               
-            </form>
+            <UserForm 
+                disabledButton={disabledButton} 
+                setDeal={setDeal} 
+                setCustomerCity={setCustomerCity} 
+                setCustomerName={setCustomerName} 
+                setCustomerSurname={setCustomerSurname}
+                setCustomerPhone={setCustomerPhone}
+                setCustomerCountry={setCustomerCountry}
+                customerInformation={customerInformation}
+            />
         </div>
     ) : null
 
-    const products = props.products.length !== 0 ? props.products.map( (product) => {             
-        let amount = [];         
-        for (let i = 1; i <= product.amount; i++) {
-            amount.push(<option key={i+1} value={i}>{i}</option>)
-        }
-        let productInfo = {} ;
-            productsList.forEach( (item) => {
-                if (item.uuid === product.uuid) {
-                    productInfo.total = item.amount * item.price;
-                    productInfo.amount = item.amount;
-                }
-            })      
-           
-        return (
-            <div key={product.uuid} className='basket-product'>
-                <div className='basket-product-image'>
-                    <img className='image' src={product.image[0]} />
-                </div>
-                <div className='basket-product-information'>
-                    <h2>{product.name}</h2>
-                    <div className='basket-product-pricing'>
-                        <div className='basket-product-price'>
-                            <p>{customerBasket.price}</p>
-                            <p>{product.price}$</p>
-                        </div>
-                        <div className='basket-product-amount'>
-                            <p>{customerBasket.amount}</p>
-                            <select className='amount-input' value={productInfo.amount} onChange={
-                                (event) => {
-                                    setProductAmount(event, product.uuid)
-                                    changeTotalSum()
-                                }
-                            }>
-                                {amount}
-                            </select>
-                        </div>
-                        <div className='basket-product-price'>
-                            <p>{customerBasket.total}</p>
-                            <p>{productInfo.total}$</p>
-                        </div>                  
-                    </div>
-                </div>
-                <div className='basket-product-remove-from-basket'>
-                    <button onClick={ 
-                            () => {
-                            props.removeProductFromBasket(product.uuid)
-                            productsList.forEach( (item, index) => {
-                                if (item.uuid === product.uuid) {
-                                    productsList.splice(index, 1);
-                                }
-                            })
-                            changeTotalSum();                                               
-                        }
-                    }
-                    className='change-button'
-                    >
-                        <img className='basket-icon' src={DeleteIcon} />
-                    </button>
-                </div>
-            </div>
-        )
-    }) : <div className='basket-empty'>
+    const products = props.products.length !== 0 ? 
+        <GetBasketProducts 
+            removeProductFromBasket={props.removeProductFromBasket}
+            changeTotalSum={changeTotalSum}
+            setProductAmount={setProductAmount}
+            products={props.products}
+            productsList={productsList}
+        /> : 
+        <div className='basket-empty'>
             <img className='basket-icon' src={GameIcon} />
             <p>{customerBasket.emptyBasket}</p>
         </div>;    

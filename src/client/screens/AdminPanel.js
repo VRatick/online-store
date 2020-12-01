@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import Carousel from '../components/carousel';
 import adminPanelText from '../assets/local/adminPanel.json';
-import DeleteIcon from '../assets/images/DeleteIcon.png'
-import PenIcon from '../assets/images/PenIcon.svg';
 import GetProductImages from '../components/getProductImages';
 import '../styles/adminpanel.css'
+import GetAllAdminProducts from '../components/getAllAdminProducts';
+import ProductForm from '../components/productForm';
+import ModalChangeProductForm from '../components/modalChangeProductForm';
+import AddProductForm from '../components/addProductForm';
 
 function AdminPanel (props) {
     const [productDB, setProductDB] = useState({
@@ -45,11 +46,11 @@ function AdminPanel (props) {
 
     const handleClickOpen = () => {
         setOpen(true);
-      };
+    };
     
-      const handleClose = () => {
+    const handleClose = () => {
         setOpen(false);
-      };
+    };
 
     const setProductName = (event) => {
         const product = {...productDB};
@@ -110,103 +111,23 @@ function AdminPanel (props) {
         const product = {...productDB};
         product.image = event.target.value.split(' ');        
         setProductDB(product);        
-    }
-    
-    const products = db.map( (product) => {
-        const images = GetProductImages(product, 'small');
-        return (
-            <div key={product.uuid} className='product height'>
-                <div className='product-image'>                                      
-                    <Carousel images={images}/>                                  
-                </div>
-                <div className='product-information'>
-                    <p>{adminPanelText.uuid}: {product.uuid}</p>                 
-                    <p>{adminPanelText.name}: {product.name}</p>
-                    <p>{adminPanelText.price}: ${product.price}</p>                                        
-                    <p>{adminPanelText.description_short}: {product.description_short}</p>   
-                    <p>{adminPanelText.description_full}: {product.description_full}</p>
-                    <p>{adminPanelText.producer}: {product.producer}</p>   
-                    <p>{adminPanelText.amount}: {product.amount}</p>   
-                    <p>{adminPanelText.language}: {product.language}</p>
-                    <p>{adminPanelText.date}: {product.date}</p>
-                    <p>{adminPanelText.platform}: {product.platform}</p>
-                </div>
-                <div className='product-add-to-basket'>
-                    <button className="remove-product buy-button" onClick={
-                        () => {
-                            props.deleteProduct(product.uuid)                            
-                        }
-                    }><img className='basket-icon' src={DeleteIcon} /></button>
-                    <button className='change-button' onClick={
-                        () => {                                                                           
-                            setProductDB({...productDB,
-                                uuid: product.uuid,
-                                name: product.name,
-                                price: product.price,
-                                description_short: product.description_short,
-                                description_full: product.description_full,
-                                producer: product.producer,
-                                amount: product.amount,
-                                language: product.language,
-                                date: product.date,
-                                platform: product.platform,
-                                image: product.image,
-                                __v: product.__v,
-                                _id: product._id
-                            });   
-                            handleClickOpen();                             
-                        }
-                    }><img className='basket-icon' src={PenIcon} />
-                    </button>
-                </div>
-            </div>
-        )
-    })
+    }    
 
     const addProductForm = (        
         <div>            
-            <form>
-                <div className='basket-input'>
-                    <p>{adminPanelText.name}</p>
-                    <input className='text-input' value={productDB.name} onChange={setProductName} placeholder={adminPanelText.name_help_text}></input>                   
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.price}</p>
-                    <input className='text-input' value={productDB.price} onChange={setProductPrice} placeholder={adminPanelText.price_help_text}></input> 
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.description_short}</p>
-                    <input className='text-input' value={productDB.description_short} onChange={setProductDescriptionShort} placeholder={adminPanelText.description_short_help_text}></input>   
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.description_full}</p>
-                    <input className='text-input' value={productDB.description_full} onChange={setProductDescriptionFull} placeholder={adminPanelText.description_full_help_text}></input>  
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.producer}</p>
-                    <input className='text-input' value={productDB.producer} onChange={setProductProducer} placeholder={adminPanelText.producer_help_text}></input>  
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.amount}</p>
-                    <input className='text-input' value={productDB.amount} onChange={setProductAmount} placeholder={adminPanelText.amount_help_text}></input> 
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.language}</p>
-                    <input className='text-input' value={productDB.language} onChange={setProductLanguage} placeholder={adminPanelText.language_help_text}></input> 
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.date}</p>
-                    <input className='text-input' value={productDB.date} onChange={setProductDate} placeholder={adminPanelText.date_help_text}></input> 
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.platform}</p>
-                    <input className='text-input' value={productDB.platform} onChange={setProductPlatform} placeholder={adminPanelText.platform_help_text}></input> 
-                </div>
-                <div className='basket-input'>
-                    <p>{adminPanelText.images}</p>
-                    <input className='text-input' value={productDB.image === null ? productDB.image : productDB.image.join(' ')} onChange={setProductImages} placeholder={adminPanelText.images_help_text}></input>  
-                </div>                           
-            </form>
+            <ProductForm 
+                productDB={productDB}
+                setProductAmount={setProductAmount}
+                setProductDate={setProductDate}
+                setProductDescriptionFull={setProductDescriptionFull}
+                setProductDescriptionShort={setProductDescriptionShort}
+                setProductImages={setProductImages}
+                setProductLanguage={setProductLanguage}
+                setProductName={setProductName}
+                setProductPlatform={setProductPlatform}
+                setProductPrice={setProductPrice}
+                setProductProducer={setProductProducer}
+            />
         </div>
         )
     
@@ -215,45 +136,33 @@ function AdminPanel (props) {
             <div>
                 <button className='buy-button' onClick={() => {setShowForm(!showForm)}}>{!showForm ? adminPanelText.add_product : adminPanelText.show_products}</button>
             </div>
-            <div className='add-product-form'  style={form.show}>
-                {addProductForm}
-                <div>
-                    <button                         
-                        disabled={buttonDisbaled()} 
-                        className='buy-button'
-                        onClick={() => {                            
-                            props.addProduct(productDB);  
-                            window.location.reload(false);                            
-                        }}
-                    >
-                        {adminPanelText.add}
-                    </button> 
-                </div>    
-            </div>
+            <AddProductForm 
+                form={form}
+                buttonDisbaled={buttonDisbaled}
+                addProduct={props.addProduct}
+                productDB={productDB}
+                addProductForm={addProductForm}
+            />
             <div className='margin-top' style={form.hide}>
                 <div className='flex-container'>                     
-                    {products}  
+                    <GetAllAdminProducts 
+                        db={db}
+                        GetProductImages={GetProductImages}
+                        deleteProduct={props.deleteProduct}
+                        productDB={productDB}
+                        setProductDB={setProductDB}
+                        handleClickOpen={handleClickOpen}                        
+                    />
                 </div> 
             </div>
             <div>                
-                <div class="modal" style={form.modal}>
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title">{adminPanelText.change_product}</h3>                                
-                            </div>
-                            <div class="modal-body">    
-                                <p>{addProductForm}</p>
-                                <button class='buy-button' onClick={
-                                    () => {
-                                        handleClose()
-                                        props.changeProduct(productDB);
-                                    }
-                                }>{adminPanelText.change_product}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ModalChangeProductForm 
+                    form={form}
+                    addProductForm={addProductForm}
+                    handleClose={handleClose}
+                    changeProduct={props.changeProduct}
+                    productDB={productDB}
+                />
             </div>         
         </div>    
     )
