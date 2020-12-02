@@ -1,19 +1,19 @@
 .modal {
-    position: fixed; /* фиксированное положение */
+    position: fixed; 
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0,0,0,0.5); /* цвет фона */
+    background: rgba(0,0,0,0.5); 
     z-index: 1050;
-    opacity: 1; /* по умолчанию модальное окно прозрачно */
+    opacity: 1;
     -webkit-transition: opacity 200ms ease-in; 
     -moz-transition: opacity 200ms ease-in;
-    transition: opacity 200ms ease-in; /* анимация перехода */    
+    transition: opacity 200ms ease-in; 
     margin: 0;
     padding: 0;
 }
-/* ширина модального окна и его отступы от экрана */
+
 .modal-dialog {
     position: relative;
     width: auto;
@@ -22,10 +22,10 @@
 @media (min-width: 576px) {
   .modal-dialog {
       max-width: 700px;
-      margin: 30px auto; /* для отображения модального окна по центру */
+      margin: 30px auto; 
   }
 }
-/* свойства для блока, содержащего контент модального окна */ 
+
 .modal-content {
     position: relative;
     display: -webkit-box;
@@ -50,7 +50,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,.5);
   }
 }
-/* свойства для заголовка модального окна */
+
 .modal-header {
     display: -webkit-box;
     display: -webkit-flex;
@@ -72,7 +72,7 @@
     font-weight: 500;
     
 }
-/* свойства для кнопки "Закрыть" */
+
 .close {
     float: right;
     font-family: sans-serif;
@@ -84,14 +84,14 @@
     opacity: .5;
     text-decoration: none;
 }
-/* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении */
+
 .close:focus, .close:hover {
     color: #000;
     text-decoration: none;
     cursor: pointer;
     opacity: .75;
 }
-/* свойства для блока, содержащего основное содержимое окна */
+
 .modal-body {
   position: relative;
     -webkit-box-flex: 1;

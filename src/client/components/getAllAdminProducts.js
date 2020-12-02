@@ -25,13 +25,11 @@ function GetAllAdminProducts (props) {
                     <p>{adminPanelText.platform}: {product.platform}</p>
                 </div>
                 <div className='product-add-to-basket'>
-                    <button className="remove-product buy-button" onClick={
-                        () => {
+                    <button className="remove-product buy-button" onClick={() => {
                             props.deleteProduct(product.uuid)                            
                         }
                     }><img className='basket-icon' src={DeleteIcon} /></button>
-                    <button className='change-button' onClick={
-                        () => {                                                                           
+                    <button className='change-button' onClick={() => {                                                                           
                             props.setProductDB({...props.productDB,
                                 uuid: product.uuid,
                                 name: product.name,

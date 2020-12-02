@@ -4,7 +4,7 @@ import '../styles/carousel.css'
 function Carousel (props) {
 
     let [slideIndex, setSlideIndex] = React.useState(1);
-    let container = props.images[0].props.className === 'single-product-image' ? 'slideshow-container' : 'slideshow-container-min'    
+    let container = props.images[0].props.className === 'image-container-normal' ? 'slideshow-container' : 'slideshow-container-small'    
     let images;
     showSlides(slideIndex);
 

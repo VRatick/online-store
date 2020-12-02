@@ -29,8 +29,7 @@ function GetBasketProducts (props) {
                         </div>
                         <div className='basket-product-amount'>
                             <p>{customerBasket.amount}</p>
-                            <select className='amount-input' value={productInfo.amount} onChange={
-                                (event) => {
+                            <select className='amount-input' value={productInfo.amount} onChange={(event) => {
                                     props.setProductAmount(event, product.uuid)
                                     props.changeTotalSum()
                                 }
@@ -45,8 +44,7 @@ function GetBasketProducts (props) {
                     </div>
                 </div>
                 <div className='basket-product-remove-from-basket'>
-                    <button onClick={ 
-                            () => {
+                    <button onClick={() => {
                             props.removeProductFromBasket(product.uuid)
                             props.productsList.forEach( (item, index) => {
                                 if (item.uuid === product.uuid) {

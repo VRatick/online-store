@@ -11,8 +11,7 @@ function ModalChangeProductForm (props) {
                     </div>
                     <div class="modal-body">    
                         <p>{props.addProductForm}</p>
-                        <button class='buy-button' onClick={
-                            () => {
+                        <button class='buy-button' onClick={() => {
                                 props.handleClose()
                                 props.changeProduct(props.productDB);
                             }

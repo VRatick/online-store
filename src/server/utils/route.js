@@ -11,19 +11,19 @@ function route (app) {
 
     // RESTful api handlers
     app.get('/products', (req, res) => {
-        db.listProducts().then(data => res.send(data), error => console.log(error));
+        db.listProducts().then(data => res.send(data)).catch(error => console.log(error));
     });
 
     app.post('/products', (req, res) => {
-        db.createProduct(req.body).then(data => res.send(data), error => console.log(error));
+        db.createProduct(req.body).then(data => res.send(data)).catch(error => console.log(error));
     });
 
     app.put('/products/:product', (req, res) => { 
-        db.changeProduct(req.body).then(data => res.send(data), error => console.log(error));
+        db.changeProduct(req.body).then(data => res.send(data)).catch(error => console.log(error));
     });
 
     app.delete('/products/:uuid', (req, res) => {
-        db.deleteProduct(req.params.uuid).then(data => res.send(data), error => console.log(error));
+        db.deleteProduct(req.params.uuid).then(data => res.send(data)).catch(error => console.log(error));
     });
 }
 

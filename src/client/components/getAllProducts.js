@@ -28,8 +28,7 @@ function GetAllProducts (props) {
                     </Link>
                 </div>
                 <div className='product-add-to-basket'>
-                    <button className='buy-button' onClick={
-                        () => {
+                    <button className='buy-button' onClick={() => {
                             props.addProductToBasket(product)                                                                         
                         }
                     }>

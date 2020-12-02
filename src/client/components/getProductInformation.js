@@ -9,8 +9,7 @@ function GetProductInformation (props) {
             </div>
             <div className='single-product-buy'>
                 <p className='buy-container price'>{props.product.price}$</p>                        
-                <button className='buy-button buy-container' onClick={
-                    () => {
+                <button className='buy-button buy-container' onClick={() => {
                         props.addProductToBasket(props.product);                                                          
                     }
                 }>                            
