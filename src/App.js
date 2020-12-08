@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import AdminPanel from './src/screens/AdminPanel';
-import Basket from './src/screens/Basket';
-import ProductsList from './src/screens/ProductsList';
-import Product from './src/screens/Product';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import './src/styles/app.css';
-import xboxLogo from './src/assets/images/xboxLogo.png'
-import { getProductsFromDataBase } from './src/redux/actions/products';
 import axios from 'axios';
-import { apiPrefix } from './src/etc/config.json'
+import AdminPanel from './client/redux/connect/AdminPanel';
+import Basket from './client/redux/connect/Basket';
+import ProductsList from './client/redux/connect/ProductsList';
+import Product from './client/redux/connect/Product';
+import BasketIcon from './client/assets/images/BasketIcon.png';
+import { getProductsFromDataBase } from './client/redux/actions/products';
+import { apiPrefix } from './client/config.json'
+import xboxLogo from './client/assets/images/xboxLogo.png'
+import './client/styles/app.css';
 
 function App (props) {
   const [loading, setLoading] = useState(true);
     if (props.products.length === 0 && loading) {
         props.getProduct();
         setLoading(false);
-    }  
+    }    
+
   return (
     <Router>
       <div>
@@ -28,7 +28,7 @@ function App (props) {
               </Link>
               <div>        
                 <Link to="/basket">                          
-                  <ShoppingCartIcon style={{ width: '75px', height: '75px', color: 'black' }}></ShoppingCartIcon>   
+                  <img className='banner' src={BasketIcon} />
                 </Link>
               </div>     
         </div>
